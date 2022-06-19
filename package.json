@@ -1,0 +1,10 @@
+{
+  "name": "travel-planner-server",
+  "version": "0.1.0",
+  "description": "Backend server for Travel Planner app",
+  "main": "index.js",
+  "repository": "https://github.com/jakec-dev/travel-planner-server",
+  "author": "Jake Clayton <jake@jakec.dev>",
+  "license": "MIT",
+  "private": true
+}
