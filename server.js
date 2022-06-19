@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
   res.send("Travel Planner Backend Server");
 });
 
-app.get("/items/get", (req, res) => {
+app.get("/items", (req, res) => {
   res.json({
     items: [
       { id: 1, name: "Backpack", brand: "Osprey" },
@@ -22,5 +22,6 @@ app.get("/items/get", (req, res) => {
 });
 
 const server = app.listen(app.get("port"), () => {
+  // eslint-disable-next-line no-console
   console.log("listening on port ", server.address().port);
 });
