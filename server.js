@@ -17,7 +17,7 @@ const items = [
 
 app.get("/items", (req, res) => {
   // SELECT * FROM items
-  res.json({ items });
+  res.json(items);
 });
 
 app.get("/item/:id", (req, res) => {
@@ -37,7 +37,7 @@ app.put("/item", (req, res) => {
   const updatedItems = items.map((item) =>
     item.id === req.body.id ? req.body : item
   );
-  res.json({ items: updatedItems });
+  res.json(updatedItems);
 });
 
 app.delete("/item/:id", (req, res) => {
