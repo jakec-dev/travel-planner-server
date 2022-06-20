@@ -34,8 +34,9 @@ app.post("/item", (req, res) => {
 });
 
 app.put("/item", (req, res) => {
-  const itemsWithoutModified = items.filter((item) => item.id !== req.body.id);
-  const updatedItems = [...itemsWithoutModified, req.body];
+  const updatedItems = items.map((item) =>
+    item.id === req.body.id ? req.body : item
+  );
   res.json({ items: updatedItems });
 });
 
