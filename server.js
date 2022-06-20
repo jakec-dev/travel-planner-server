@@ -15,19 +15,9 @@ const items = [
   { id: 3, name: "Toothpaste", brand: "Colgate" },
 ];
 
-app.get("/", (req, res) => {
-  res.send("Travel Planner Backend Server");
-});
-
 app.get("/items", (req, res) => {
   // SELECT * FROM items
   res.json({ items });
-});
-
-app.post("/item", (req, res) => {
-  // Save req.body to database
-  // Return new item
-  res.send(req.body);
 });
 
 app.get("/item/:id", (req, res) => {
@@ -37,8 +27,19 @@ app.get("/item/:id", (req, res) => {
   res.json(item);
 });
 
+app.post("/item", (req, res) => {
+  // Save req.body to database
+  // Return new item
+  res.send(req.body);
+});
+
+app.put("/item", (req, res) => {
+  const itemsWithoutModified = items.filter((item) => item.id !== req.body.id);
+  const updatedItems = [...itemsWithoutModified, req.body];
+  res.json({ items: updatedItems });
+});
+
 app.delete("/item/:id", (req, res) => {
-  // SQL...
   const tempItems = [
     { id: 1, name: "Backpack", brand: "Osprey" },
     { id: 2, name: "Shoes", brand: "Nike" },
