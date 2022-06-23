@@ -20,27 +20,27 @@ app.get("/items", (req, res) => {
   res.json(items);
 });
 
-app.get("/items/:id", (req, res) => {
+app.get("/item/:id", (req, res) => {
   // SELECT * FROM items WHERE id=req.itemId
   const item = items.find((i) => i.id === parseInt(req.params.id, 10));
   // Return new item
   res.json(item);
 });
 
-app.post("/items", (req, res) => {
+app.post("/item", (req, res) => {
   // Save req.body to database
   // Return new item
   res.send(req.body);
 });
 
-app.put("/items", (req, res) => {
+app.put("/item", (req, res) => {
   const updatedItems = items.map((item) =>
     item.id === req.body.id ? req.body : item
   );
   res.json(updatedItems);
 });
 
-app.delete("/items/:id", (req, res) => {
+app.delete("/item/:id", (req, res) => {
   const tempItems = [
     { id: 1, name: "Backpack", brand: "Osprey" },
     { id: 2, name: "Shoes", brand: "Nike" },
