@@ -31,7 +31,11 @@ const getItem = (req, res) => {
 };
 
 const getItems = (req, res) => {
-  res.json(items);
+  res.json({
+    status: "success",
+    message: "Items fetched successfully",
+    data: items,
+  });
 };
 
 const updateItem = (req, res) => {
