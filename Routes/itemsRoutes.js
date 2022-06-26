@@ -1,13 +1,14 @@
 const express = require("express");
 const itemsController = require("../Controllers/itemsController");
+const Validator = require("../Middlewares/ValidatorMiddleware");
 
 const router = express.Router();
 
-router.post("/", itemsController.addItem);
 router.get("/", itemsController.getItems);
-router.put("/", itemsController.updateItem);
+router.post("/", Validator("item"), itemsController.addItem);
+router.put("/", Validator("item"), itemsController.updateItem);
 
-router.delete("/:id", itemsController.deleteItem);
 router.get("/:id", itemsController.getItem);
+router.delete("/:id", itemsController.deleteItem);
 
 module.exports = router;
