@@ -5,19 +5,29 @@ const items = [
 ];
 
 const addItem = (req, res) => {
-  res.send(req.body);
+  res.json({
+    status: "success",
+    message: "Item created successfully",
+    data: req.body,
+  });
 };
 
 const deleteItem = (req, res) => {
-  const updatedItems = items.filter(
-    (i) => i.id !== parseInt(req.params.id, 10)
-  );
-  res.json(updatedItems);
+  const updatedItems = items.filter((item) => item.id !== req.body);
+  res.json({
+    status: "success",
+    message: "Item deleted successfully",
+    data: updatedItems,
+  });
 };
 
 const getItem = (req, res) => {
-  const item = items.find((i) => i.id === parseInt(req.params.id, 10));
-  res.json(item);
+  const fetchedItem = items.find((item) => item.id === req.body);
+  res.json({
+    status: "success",
+    message: "Item fetched successfully",
+    data: fetchedItem,
+  });
 };
 
 const getItems = (req, res) => {
@@ -28,7 +38,11 @@ const updateItem = (req, res) => {
   const updatedItems = items.map((item) =>
     item.id === req.body.id ? req.body : item
   );
-  res.json(updatedItems);
+  res.json({
+    status: "success",
+    message: "Item updated successfully",
+    data: updatedItems,
+  });
 };
 
 module.exports = {
