@@ -27,11 +27,18 @@ const getItem = (req, res) => {
   const fetchedItem = items.find(
     (item) => item.id === parseInt(req.params.id, 10)
   );
-  res.json({
-    status: "success",
-    message: "Item fetched successfully",
-    data: fetchedItem,
-  });
+  if (!fetchedItem) {
+    res.json({
+      status: "error",
+      message: `No item found with id=${req.params.id}`,
+    });
+  } else {
+    res.json({
+      status: "success",
+      message: "Item fetched successfully",
+      data: fetchedItem,
+    });
+  }
 };
 
 const getItems = (_req, res) => {
