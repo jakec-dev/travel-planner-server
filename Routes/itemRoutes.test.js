@@ -1,9 +1,9 @@
-const { expect } = require("chai");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const app = require("../server");
 
 chai.use(chaiHttp);
+const { expect } = chai;
 
 describe("Routes/itemRoutes", function () {
   describe("GET /items", function () {

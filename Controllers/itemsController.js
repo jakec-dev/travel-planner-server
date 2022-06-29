@@ -4,29 +4,42 @@ const items = [
   { id: 3, name: "Toothpaste", brand: "Colgate" },
 ];
 
+const findItem = (itemId) => items.find((item) => item.id === itemId);
+
 const addItem = (req, res) => {
-  res.json({
-    status: "success",
-    message: "Item created successfully",
-    data: req.body,
-  });
+  const existingItem = findItem(req.body.id);
+  if (existingItem) {
+    res.json({
+      status: "error",
+      message: `Item with ID ${req.body.id} already exists`,
+    });
+  } else {
+    res.json({
+      status: "success",
+      message: "Item created successfully",
+      data: req.body,
+    });
+  }
 };
 
 const deleteItem = (req, res) => {
-  const updatedItems = items.filter(
-    (item) => item.id !== parseInt(req.params.id, 10)
-  );
-  res.json({
-    status: "success",
-    message: "Item deleted successfully",
-    data: updatedItems,
-  });
+  const existingItem = findItem(parseInt(req.params.id, 10));
+  if (!existingItem) {
+    res.json({
+      status: "error",
+      message: `No item with ID ${req.params.id} exists`,
+    });
+  } else {
+    res.json({
+      status: "success",
+      message: "Item deleted successfully",
+      data: existingItem,
+    });
+  }
 };
 
 const getItem = (req, res) => {
-  const fetchedItem = items.find(
-    (item) => item.id === parseInt(req.params.id, 10)
-  );
+  const fetchedItem = findItem(parseInt(req.params.id, 10));
   if (!fetchedItem) {
     res.json({
       status: "error",
@@ -50,14 +63,19 @@ const getItems = (_req, res) => {
 };
 
 const updateItem = (req, res) => {
-  const updatedItems = items.map((item) =>
-    item.id === req.body.id ? req.body : item
-  );
-  res.json({
-    status: "success",
-    message: "Item updated successfully",
-    data: updatedItems,
-  });
+  const existingItem = findItem(req.body.id);
+  if (!existingItem) {
+    res.json({
+      status: "error",
+      message: `No item with ID ${req.body.id} exists`,
+    });
+  } else {
+    res.json({
+      status: "success",
+      message: "Item updated successfully",
+      data: req.body,
+    });
+  }
 };
 
 module.exports = {
