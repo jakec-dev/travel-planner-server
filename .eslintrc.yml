@@ -10,7 +10,7 @@ rules:
   mocha/prefer-arrow-callback: 2
 overrides:
   - files:
-      - "*/*.test.js"
+      - "**/*.test.js"
     rules:
       func-names: 0
       no-unused-expressions: 0
