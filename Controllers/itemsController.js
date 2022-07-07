@@ -1,4 +1,6 @@
-const items = [
+const { dbReadItem, dbReadItems } = require("../Services/dbItemsOps");
+
+const hardcodedItems = [
   { id: 1, name: "Backpack", brand: "Osprey" },
   { id: 2, name: "Shoes", brand: "Nike" },
   { id: 3, name: "Toothpaste", brand: "Colgate" },
@@ -13,7 +15,7 @@ const addItem = (req, res) => {
 };
 
 const deleteItem = (req, res) => {
-  const updatedItems = items.filter(
+  const updatedItems = hardcodedItems.filter(
     (item) => item.id !== parseInt(req.params.id, 10)
   );
   res.json({
@@ -24,24 +26,24 @@ const deleteItem = (req, res) => {
 };
 
 const getItem = (req, res) => {
-  const fetchedItem = items.find(
-    (item) => item.id === parseInt(req.params.id, 10)
-  );
-  if (!fetchedItem) {
+  const itemId = parseInt(req.params.id, 10);
+  const item = dbReadItem(itemId);
+  if (!item) {
     res.json({
       status: "error",
-      message: `No item found with id=${req.params.id}`,
+      message: `No item found with id=${itemId}`,
     });
   } else {
     res.json({
       status: "success",
       message: "Item fetched successfully",
-      data: fetchedItem,
+      data: item,
     });
   }
 };
 
 const getItems = (_req, res) => {
+  const items = dbReadItems();
   res.json({
     status: "success",
     message: "Items fetched successfully",
@@ -50,7 +52,7 @@ const getItems = (_req, res) => {
 };
 
 const updateItem = (req, res) => {
-  const updatedItems = items.map((item) =>
+  const updatedItems = hardcodedItems.map((item) =>
     item.id === req.body.id ? req.body : item
   );
   res.json({
