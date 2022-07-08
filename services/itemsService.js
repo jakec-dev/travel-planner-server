@@ -1,7 +1,7 @@
 const { getItemRecords } = require("../data/itemsData");
 
 const getItemWithId = async (itemId) => {
-  const result = await getItemRecords([itemId]);
+  const result = await getItemRecords(itemId);
   return result[0];
 };
 
