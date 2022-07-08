@@ -1,4 +1,4 @@
-const { getItems, getItemWithId } = require("../data/itemsData");
+const { getItems, getItemWithId } = require("../services/itemsService");
 
 const hardcodedItems = [
   { id: 1, name: "Backpack", brand: "Osprey" },
