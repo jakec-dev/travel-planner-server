@@ -1,4 +1,4 @@
-const Validators = require("../Validators");
+const Validators = require("../validators");
 
 function ValidatorMiddleware(validator) {
   if (!Object.prototype.hasOwnProperty.call(Validators, validator))
