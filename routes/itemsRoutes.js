@@ -4,11 +4,11 @@ const Validator = require("../middlewares/ValidatorMiddleware");
 
 const router = express.Router();
 
-router.get("/", itemsController.getItems);
-router.post("/", Validator("item"), itemsController.addItem);
-router.put("/", Validator("item"), itemsController.updateItem);
+router.get("/", itemsController.get);
+router.post("/", Validator("newItem"), itemsController.post);
+router.put("/", Validator("existingItem"), itemsController.put);
 
-router.get("/:id", itemsController.getItem);
-router.delete("/:id", itemsController.deleteItem);
+router.get("/:id", itemsController.getWithId);
+router.delete("/:id", itemsController.deleteWithId);
 
 module.exports = router;

@@ -1,87 +1,99 @@
-const items = [
-  { id: 1, name: "Backpack", brand: "Osprey" },
-  { id: 2, name: "Shoes", brand: "Nike" },
-  { id: 3, name: "Toothpaste", brand: "Colgate" },
-];
+const {
+  createItem,
+  getItems,
+  updateItem,
+  getItemWithId,
+  deleteItemWithId,
+} = require("../services/itemsService");
 
-const findItem = (itemId) => items.find((item) => item.id === itemId);
-
-const addItem = (req, res) => {
-  const existingItem = findItem(req.body.id);
-  if (existingItem) {
+const get = async (_req, res) => {
+  const result = await getItems();
+  if (result.status === "error") {
     res.json({
       status: "error",
-      message: `Item with ID ${req.body.id} already exists`,
+      message: result.errorMessage,
     });
   } else {
     res.json({
       status: "success",
-      message: "Item created successfully",
-      data: req.body,
+      message: "Items fetched successfully",
+      data: result.data,
     });
   }
 };
 
-const deleteItem = (req, res) => {
-  const existingItem = findItem(parseInt(req.params.id, 10));
-  if (!existingItem) {
+const post = async (req, res) => {
+  const newItem = req.body;
+  const result = await createItem(newItem);
+  if (result.status === "error") {
     res.json({
       status: "error",
-      message: `No item with ID ${req.params.id} exists`,
+      message: result.errorMessage,
     });
   } else {
     res.json({
       status: "success",
-      message: "Item deleted successfully",
-      data: existingItem,
+      message: "Item added successfully",
+      data: result.data,
     });
   }
 };
 
-const getItem = (req, res) => {
-  const fetchedItem = findItem(parseInt(req.params.id, 10));
-  if (!fetchedItem) {
+const put = async (req, res) => {
+  const modifiedItem = req.body;
+  const result = await updateItem(modifiedItem);
+  if (result.status === "error") {
     res.json({
       status: "error",
-      message: `No item found with id=${req.params.id}`,
-    });
-  } else {
-    res.json({
-      status: "success",
-      message: "Item fetched successfully",
-      data: fetchedItem,
-    });
-  }
-};
-
-const getItems = (_req, res) => {
-  res.json({
-    status: "success",
-    message: "Items fetched successfully",
-    data: items,
-  });
-};
-
-const updateItem = (req, res) => {
-  const existingItem = findItem(req.body.id);
-  if (!existingItem) {
-    res.json({
-      status: "error",
-      message: `No item with ID ${req.body.id} exists`,
+      message: result.errorMessage,
     });
   } else {
     res.json({
       status: "success",
       message: "Item updated successfully",
-      data: req.body,
+      data: modifiedItem,
+    });
+  }
+};
+
+const getWithId = async (req, res) => {
+  const itemId = parseInt(req.params.id, 10);
+  const result = await getItemWithId(itemId);
+  if (result.status === "error") {
+    res.json({
+      status: "error",
+      message: result.errorMessage,
+    });
+  } else {
+    res.json({
+      status: "success",
+      message: "Item fetched successfully",
+      data: result.data,
+    });
+  }
+};
+
+const deleteWithId = async (req, res) => {
+  const itemId = parseInt(req.params.id, 10);
+  const result = await deleteItemWithId(itemId);
+  if (result.status === "error") {
+    res.json({
+      status: "error",
+      message: result.errorMessage,
+    });
+  } else {
+    res.json({
+      status: "success",
+      message: "Item deleted successfully",
+      data: itemId,
     });
   }
 };
 
 module.exports = {
-  addItem,
-  deleteItem,
-  getItem,
-  getItems,
-  updateItem,
+  get,
+  post,
+  put,
+  getWithId,
+  deleteWithId,
 };

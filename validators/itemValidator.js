@@ -1,9 +1,14 @@
 const Joi = require("joi");
 
-const itemSchema = Joi.object({
+const existingItemSchema = Joi.object({
   id: Joi.number().required(),
   name: Joi.string().required(),
   brand: Joi.string(),
 });
 
-module.exports = itemSchema;
+const newItemSchema = Joi.object({
+  name: Joi.string().required(),
+  brand: Joi.string(),
+});
+
+module.exports = { newItemSchema, existingItemSchema };
