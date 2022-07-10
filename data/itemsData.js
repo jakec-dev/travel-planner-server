@@ -39,7 +39,23 @@ const insertItemRecord = (newItem) => {
     pool.query(
       "INSERT INTO items (name, brand) VALUES (?, ?)",
       [name, brand],
-      resolvePromise(resolve, reject)
+      (err, resp) => {
+        if (err) {
+          reject(err);
+        } else {
+          pool.query(
+            "SELECT * FROM items WHERE id = ?",
+            [resp.insertId],
+            (selectErr, result) => {
+              if (selectErr) {
+                reject(selectErr);
+              } else {
+                resolve(result[0]);
+              }
+            }
+          );
+        }
+      }
     );
   });
 };

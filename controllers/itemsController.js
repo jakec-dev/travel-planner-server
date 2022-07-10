@@ -6,8 +6,8 @@ const {
   deleteItemWithId,
 } = require("../services/itemsService");
 
-const get = (_req, res) => {
-  const result = getItems();
+const get = async (_req, res) => {
+  const result = await getItems();
   if (result.status === "error") {
     res.json({
       status: "error",
@@ -22,9 +22,9 @@ const get = (_req, res) => {
   }
 };
 
-const post = (req, res) => {
+const post = async (req, res) => {
   const newItem = req.body;
-  const result = createItem(newItem);
+  const result = await createItem(newItem);
   if (result.status === "error") {
     res.json({
       status: "error",
@@ -34,14 +34,14 @@ const post = (req, res) => {
     res.json({
       status: "success",
       message: "Item added successfully",
-      data: { ...newItem, id: result.insertId },
+      data: result.data,
     });
   }
 };
 
-const put = (req, res) => {
+const put = async (req, res) => {
   const modifiedItem = req.body;
-  const result = updateItem(modifiedItem);
+  const result = await updateItem(modifiedItem);
   if (result.status === "error") {
     res.json({
       status: "error",
@@ -56,9 +56,9 @@ const put = (req, res) => {
   }
 };
 
-const getWithId = (req, res) => {
+const getWithId = async (req, res) => {
   const itemId = parseInt(req.params.id, 10);
-  const result = getItemWithId(itemId);
+  const result = await getItemWithId(itemId);
   if (result.status === "error") {
     res.json({
       status: "error",
@@ -73,9 +73,9 @@ const getWithId = (req, res) => {
   }
 };
 
-const deleteWithId = (req, res) => {
+const deleteWithId = async (req, res) => {
   const itemId = parseInt(req.params.id, 10);
-  const result = deleteItemWithId(itemId);
+  const result = await deleteItemWithId(itemId);
   if (result.status === "error") {
     res.json({
       status: "error",
