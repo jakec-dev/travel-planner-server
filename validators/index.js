@@ -1,5 +1,6 @@
-const item = require("./itemValidator");
+const { existingItemSchema, newItemSchema } = require("./itemValidator");
 
 module.exports = {
-  item,
+  existingItem: existingItemSchema,
+  newItem: newItemSchema,
 };

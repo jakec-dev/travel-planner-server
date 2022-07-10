@@ -1,10 +1,10 @@
-const { getItems, getItemWithId } = require("../services/itemsService");
-
-const hardcodedItems = [
-  { id: 1, name: "Backpack", brand: "Osprey" },
-  { id: 2, name: "Shoes", brand: "Nike" },
-  { id: 3, name: "Toothpaste", brand: "Colgate" },
-];
+const {
+  createItem,
+  getItems,
+  updateItem,
+  getItemWithId,
+  deleteItemWithId,
+} = require("../services/itemsService");
 
 const get = (_req, res) => {
   const items = getItems();
@@ -16,22 +16,37 @@ const get = (_req, res) => {
 };
 
 const post = (req, res) => {
-  res.json({
-    status: "success",
-    message: "Item created successfully",
-    data: req.body,
-  });
+  const newItem = req.body;
+  const result = createItem(newItem);
+  if (result.status === "error") {
+    res.json({
+      status: "error",
+      message: result.errorMessage,
+    });
+  } else {
+    res.json({
+      status: "success",
+      message: "Item added successfully",
+      data: { ...newItem, id: result.insertId },
+    });
+  }
 };
 
 const put = (req, res) => {
-  const updatedItems = hardcodedItems.map((item) =>
-    item.id === req.body.id ? req.body : item
-  );
-  res.json({
-    status: "success",
-    message: "Item updated successfully",
-    data: updatedItems,
-  });
+  const modifiedItem = req.body;
+  const result = updateItem(modifiedItem);
+  if (result.status === "error") {
+    res.json({
+      status: "error",
+      message: result.errorMessage,
+    });
+  } else {
+    res.json({
+      status: "success",
+      message: "Item updated successfully",
+      data: modifiedItem,
+    });
+  }
 };
 
 const getWithId = (req, res) => {
@@ -52,14 +67,20 @@ const getWithId = (req, res) => {
 };
 
 const deleteWithId = (req, res) => {
-  const updatedItems = hardcodedItems.filter(
-    (item) => item.id !== parseInt(req.params.id, 10)
-  );
-  res.json({
-    status: "success",
-    message: "Item deleted successfully",
-    data: updatedItems,
-  });
+  const itemId = parseInt(req.params.id, 10);
+  const result = deleteItemWithId(itemId);
+  if (result.status === "error") {
+    res.json({
+      status: "error",
+      message: result.errorMessage,
+    });
+  } else {
+    res.json({
+      status: "success",
+      message: "Item deleted successfully",
+      data: itemId,
+    });
+  }
 };
 
 module.exports = {
