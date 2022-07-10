@@ -38,9 +38,20 @@ const createItem = async (newItem) => {
 const updateItem = async (modifiedItem) => {
   try {
     const result = await updateItemRecord(modifiedItem);
+    if (result.affectedRows === 0) {
+      return {
+        status: "error",
+        errorMessage: `No item with ID ${modifiedItem.id} exists`,
+      };
+    }
+    if (result.changedRows === 0) {
+      return {
+        status: "success",
+        warningMessage: "Modified item is the same as the original item",
+      };
+    }
     return {
       status: "success",
-      data: result,
     };
   } catch (err) {
     return {
@@ -77,7 +88,7 @@ const deleteItemWithId = async (itemId) => {
     if (result.affectedRows === 0) {
       return {
         status: "error",
-        errorMessage: `No items with ID ${itemId} exist`,
+        errorMessage: `No item with ID ${itemId} exists`,
       };
     }
     return {
