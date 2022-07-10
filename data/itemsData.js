@@ -43,17 +43,10 @@ const insertItemRecord = (newItem) => {
         if (err) {
           reject(err);
         } else {
-          pool.query(
-            "SELECT * FROM items WHERE id = ?",
-            [resp.insertId],
-            (selectErr, result) => {
-              if (selectErr) {
-                reject(selectErr);
-              } else {
-                resolve(result[0]);
-              }
-            }
-          );
+          resolve({
+            ...newItem,
+            id: resp.insertId,
+          });
         }
       }
     );
