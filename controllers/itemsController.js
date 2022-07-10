@@ -7,12 +7,19 @@ const {
 } = require("../services/itemsService");
 
 const get = (_req, res) => {
-  const items = getItems();
-  res.json({
-    status: "success",
-    message: "Items fetched successfully",
-    data: items,
-  });
+  const result = getItems();
+  if (result.status === "error") {
+    res.json({
+      status: "error",
+      message: result.errorMessage,
+    });
+  } else {
+    res.json({
+      status: "success",
+      message: "Items fetched successfully",
+      data: result.data,
+    });
+  }
 };
 
 const post = (req, res) => {
@@ -51,17 +58,17 @@ const put = (req, res) => {
 
 const getWithId = (req, res) => {
   const itemId = parseInt(req.params.id, 10);
-  const item = getItemWithId(itemId);
-  if (!item) {
+  const result = getItemWithId(itemId);
+  if (result.status === "error") {
     res.json({
       status: "error",
-      message: `No item found with id=${itemId}`,
+      message: result.errorMessage,
     });
   } else {
     res.json({
       status: "success",
       message: "Item fetched successfully",
-      data: item,
+      data: result.data,
     });
   }
 };

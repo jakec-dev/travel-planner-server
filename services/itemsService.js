@@ -5,6 +5,21 @@ const {
   deleteItemRecords,
 } = require("../data/itemsData");
 
+const getItems = async () => {
+  try {
+    const result = await selectItemRecords();
+    return {
+      status: "success",
+      data: result,
+    };
+  } catch (err) {
+    return {
+      status: "error",
+      errorMessage: err,
+    };
+  }
+};
+
 const createItem = async (newItem) => {
   try {
     const result = await insertItemRecord(newItem);
@@ -35,20 +50,25 @@ const updateItem = async (modifiedItem) => {
   }
 };
 
-updateItem({ id: 2, name: "modified name", brand: "modified brand" }).then(
-  (resp) => {
-    console.log(resp);
-  }
-);
-
-const getItems = async () => {
-  const result = await selectItemRecords();
-  return result;
-};
-
 const getItemWithId = async (itemId) => {
-  const result = await selectItemRecords(itemId);
-  return result[0];
+  try {
+    const result = await selectItemRecords(itemId);
+    if (result.length === 0) {
+      return {
+        status: "error",
+        errorMessage: `No items found with ID ${itemId}`,
+      };
+    }
+    return {
+      status: "success",
+      data: result[0],
+    };
+  } catch (err) {
+    return {
+      status: "error",
+      errorMessage: err,
+    };
+  }
 };
 
 const deleteItemWithId = async (itemId) => {
