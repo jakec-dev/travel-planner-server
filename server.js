@@ -20,3 +20,5 @@ const server = app.listen(app.get("port"), () => {
 server.on("close", () => {
   db.end();
 });
+
+module.exports = server;
