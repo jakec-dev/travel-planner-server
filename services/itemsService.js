@@ -47,11 +47,13 @@ const updateItem = async (modifiedItem) => {
     if (result.changedRows === 0) {
       return {
         status: "success",
+        data: modifiedItem,
         warningMessage: "Modified item is the same as the original item",
       };
     }
     return {
       status: "success",
+      data: modifiedItem,
     };
   } catch (err) {
     return {
@@ -93,6 +95,7 @@ const deleteItemWithId = async (itemId) => {
     }
     return {
       status: "success",
+      data: itemId,
     };
   } catch (err) {
     return {
