@@ -1,13 +1,8 @@
-const {
-  insertItemRecord,
-  updateItemRecord,
-  selectItemRecords,
-  deleteItemRecords,
-} = require("../data/itemsData");
+const itemsData = require("../data/itemsData");
 
 const getItems = async () => {
   try {
-    const result = await selectItemRecords();
+    const result = await itemsData.selectItemRecords();
     return {
       status: "success",
       data: result,
@@ -15,14 +10,14 @@ const getItems = async () => {
   } catch (err) {
     return {
       status: "error",
-      errorMessage: err,
+      errorMessage: err.message,
     };
   }
 };
 
 const createItem = async (newItem) => {
   try {
-    const result = await insertItemRecord(newItem);
+    const result = await itemsData.insertItemRecord(newItem);
     return {
       status: "success",
       data: result,
@@ -30,14 +25,14 @@ const createItem = async (newItem) => {
   } catch (err) {
     return {
       status: "error",
-      errorMessage: err,
+      errorMessage: err.message,
     };
   }
 };
 
 const updateItem = async (modifiedItem) => {
   try {
-    const result = await updateItemRecord(modifiedItem);
+    const result = await itemsData.updateItemRecord(modifiedItem);
     if (result.affectedRows === 0) {
       return {
         status: "error",
@@ -48,7 +43,6 @@ const updateItem = async (modifiedItem) => {
       return {
         status: "success",
         data: modifiedItem,
-        warningMessage: "Modified item is the same as the original item",
       };
     }
     return {
@@ -58,18 +52,18 @@ const updateItem = async (modifiedItem) => {
   } catch (err) {
     return {
       status: "error",
-      errorMessage: err,
+      errorMessage: err.message,
     };
   }
 };
 
 const getItemWithId = async (itemId) => {
   try {
-    const result = await selectItemRecords(itemId);
+    const result = await itemsData.selectItemRecords(itemId);
     if (result.length === 0) {
       return {
         status: "error",
-        errorMessage: `No items found with ID ${itemId}`,
+        errorMessage: `No item with ID ${itemId} exists`,
       };
     }
     return {
@@ -79,14 +73,14 @@ const getItemWithId = async (itemId) => {
   } catch (err) {
     return {
       status: "error",
-      errorMessage: err,
+      errorMessage: err.message,
     };
   }
 };
 
 const deleteItemWithId = async (itemId) => {
   try {
-    const result = await deleteItemRecords(itemId);
+    const result = await itemsData.deleteItemRecords(itemId);
     if (result.affectedRows === 0) {
       return {
         status: "error",
@@ -100,7 +94,7 @@ const deleteItemWithId = async (itemId) => {
   } catch (err) {
     return {
       status: "error",
-      errorMessage: err,
+      errorMessage: err.message,
     };
   }
 };

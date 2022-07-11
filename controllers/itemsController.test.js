@@ -7,7 +7,7 @@ const itemsService = require("../services/itemsService");
 chai.use(sinonChai);
 const { expect } = chai;
 
-describe("Controllers/itemsController.js", function () {
+describe("controllers/itemsController.js", function () {
   describe("get", function () {
     let getItemsStub;
     let res;
@@ -18,7 +18,7 @@ describe("Controllers/itemsController.js", function () {
     afterEach(function () {
       getItemsStub.restore();
     });
-    it("should return all items and successful status on success", async function () {
+    it("should return all items and success status on success", async function () {
       const req = {};
       getItemsStub.returns({
         status: "success",
@@ -37,12 +37,7 @@ describe("Controllers/itemsController.js", function () {
       });
     });
     it("should return an error message and error status on error", async function () {
-      const req = {
-        body: {
-          name: "test name",
-          brand: "test brand",
-        },
-      };
+      const req = {};
       getItemsStub.returns({
         status: "error",
         errorMessage: "Test error message",
@@ -65,7 +60,7 @@ describe("Controllers/itemsController.js", function () {
     afterEach(function () {
       createItemStub.restore();
     });
-    it("should return the created item and successful status on success", async function () {
+    it("should return the created item and success status on success", async function () {
       const req = {
         body: {
           name: "test name",
@@ -111,7 +106,7 @@ describe("Controllers/itemsController.js", function () {
     afterEach(function () {
       updateItemStub.restore();
     });
-    it("should return the modified item and successful status on success", async function () {
+    it("should return the modified item and success status on success", async function () {
       const req = {
         body: {
           id: 1,
@@ -159,7 +154,7 @@ describe("Controllers/itemsController.js", function () {
     afterEach(function () {
       getItemWithIdStub.restore();
     });
-    it("should return the item and successful status on success", async function () {
+    it("should return the item and success status on success", async function () {
       const req = { params: { id: "1" } };
       getItemWithIdStub.returns({
         status: "success",
@@ -203,7 +198,7 @@ describe("Controllers/itemsController.js", function () {
     afterEach(function () {
       deleteItemWithIdStub.restore();
     });
-    it("should return the deleted item's ID and successful status on success", async function () {
+    it("should return the deleted item's ID and success status on success", async function () {
       const req = { params: { id: "1" } };
       deleteItemWithIdStub.returns({
         status: "success",

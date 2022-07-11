@@ -2,7 +2,7 @@ const pool = require("../utils/dbPool");
 
 const resolvePromise = (resolve, reject) => (err, result) => {
   if (err) {
-    reject(err);
+    reject(new Error(err));
   } else {
     resolve(result);
   }
