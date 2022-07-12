@@ -6,18 +6,14 @@ const { expect } = chai;
 
 describe("middlewares/ValidatorMiddleware", function () {
   describe("function invocation", function () {
-    let mw;
-    beforeEach(function () {
-      mw = ValidatorMiddleware("newItem");
-    });
     it("should throw an error for invalid validator argument", function () {
-      expect(() => ValidatorMiddleware("invalid validator")).to.throw;
+      expect(() => ValidatorMiddleware("invalid validator")).to.throw(Error);
     });
     it("should return a function", function () {
-      expect(mw).to.be.a("function");
+      expect(ValidatorMiddleware("newItem")).to.be.a("function");
     });
     it("should accept three arguments", function () {
-      expect(mw.length).to.equal(3);
+      expect(ValidatorMiddleware("newItem").length).to.equal(3);
     });
   });
 
