@@ -1,6 +1,8 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
+const sinon = require("sinon");
 const app = require("../../server");
+const itemsData = require("../../data/itemsData");
 
 chai.use(chaiHttp);
 const { expect } = chai;
@@ -14,6 +16,10 @@ const { expect } = chai;
 describe("routes/itemRoutes", function () {
   describe("GET /items", function () {
     it("should return all items", function () {
+      const selectItemRecordsStub = sinon.stub(itemsData, "selectItemRecords");
+      selectItemRecordsStub.returns(
+        Promise.resolve([{ id: 1, name: "stub test", brand: "test" }])
+      );
       chai
         .request(app)
         .get("/items")
@@ -27,6 +33,7 @@ describe("routes/itemRoutes", function () {
               expect(item).to.have.property("id").that.is.a("number");
               expect(item).to.have.property("name").that.is.a("string");
               expect(item).to.have.property("brand").that.is.a("string");
+              expect(item.name).to.equal("stub test");
             });
           }
         });
