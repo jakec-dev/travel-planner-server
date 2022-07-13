@@ -26,15 +26,8 @@ describe("middlewares/ValidatorMiddleware", function () {
       const nextSpy = sinon.spy();
       const respSpy = sinon.spy();
       mw(
-        {
-          body: {
-            name: "test name",
-            brand: "test brand",
-          },
-        },
-        {
-          status: () => ({ json: respSpy }),
-        },
+        { body: { name: "test name", brand: "test brand" } },
+        { status: () => ({ json: respSpy }) },
         nextSpy
       );
       expect(nextSpy).to.be.calledOnce;
@@ -43,14 +36,8 @@ describe("middlewares/ValidatorMiddleware", function () {
       const nextSpy = sinon.spy();
       const respSpy = sinon.spy();
       mw(
-        {
-          body: {
-            name: "test name",
-          },
-        },
-        {
-          status: () => ({ json: respSpy }),
-        },
+        { body: { name: "test name" } },
+        { status: () => ({ json: respSpy }) },
         nextSpy
       );
       expect(nextSpy).to.be.calledOnce;
@@ -58,15 +45,7 @@ describe("middlewares/ValidatorMiddleware", function () {
     it("should fail to validate if no name is provided", function () {
       const nextSpy = sinon.spy();
       const respSpy = sinon.spy();
-      mw(
-        {
-          body: {},
-        },
-        {
-          status: () => ({ json: respSpy }),
-        },
-        nextSpy
-      );
+      mw({ body: {} }, { status: () => ({ json: respSpy }) }, nextSpy);
       expect(respSpy).to.be.calledWithMatch({ status: "error" });
       expect(nextSpy).to.not.be.calledOnce;
     });
@@ -74,15 +53,8 @@ describe("middlewares/ValidatorMiddleware", function () {
       const nextSpy = sinon.spy();
       const respSpy = sinon.spy();
       mw(
-        {
-          body: {
-            name: "test name",
-            extraAttribute: "this should fail",
-          },
-        },
-        {
-          status: () => ({ json: respSpy }),
-        },
+        { body: { name: "test name", extraAttribute: "this should fail" } },
+        { status: () => ({ json: respSpy }) },
         nextSpy
       );
       expect(respSpy).to.be.calledWithMatch({ status: "error" });
@@ -99,16 +71,8 @@ describe("middlewares/ValidatorMiddleware", function () {
       const nextSpy = sinon.spy();
       const respSpy = sinon.spy();
       mw(
-        {
-          body: {
-            id: 1,
-            name: "test name",
-            brand: "test brand",
-          },
-        },
-        {
-          status: () => ({ json: respSpy }),
-        },
+        { body: { id: 1, name: "test name", brand: "test brand" } },
+        { status: () => ({ json: respSpy }) },
         nextSpy
       );
       expect(nextSpy).to.be.calledOnce;
@@ -117,15 +81,8 @@ describe("middlewares/ValidatorMiddleware", function () {
       const nextSpy = sinon.spy();
       const respSpy = sinon.spy();
       mw(
-        {
-          body: {
-            id: 1,
-            name: "test name",
-          },
-        },
-        {
-          status: () => ({ json: respSpy }),
-        },
+        { body: { id: 1, name: "test name" } },
+        { status: () => ({ json: respSpy }) },
         nextSpy
       );
       expect(nextSpy).to.be.calledOnce;
@@ -134,14 +91,8 @@ describe("middlewares/ValidatorMiddleware", function () {
       const nextSpy = sinon.spy();
       const respSpy = sinon.spy();
       mw(
-        {
-          body: {
-            name: "test name",
-          },
-        },
-        {
-          status: () => ({ json: respSpy }),
-        },
+        { body: { name: "test name" } },
+        { status: () => ({ json: respSpy }) },
         nextSpy
       );
       expect(respSpy).to.be.calledWithMatch({ status: "error" });
@@ -150,17 +101,7 @@ describe("middlewares/ValidatorMiddleware", function () {
     it("should fail to validate if no name is provided", function () {
       const nextSpy = sinon.spy();
       const respSpy = sinon.spy();
-      mw(
-        {
-          body: {
-            id: 1,
-          },
-        },
-        {
-          status: () => ({ json: respSpy }),
-        },
-        nextSpy
-      );
+      mw({ body: { id: 1 } }, { status: () => ({ json: respSpy }) }, nextSpy);
       expect(respSpy).to.be.calledWithMatch({ status: "error" });
       expect(nextSpy).to.not.be.calledOnce;
     });
@@ -175,9 +116,7 @@ describe("middlewares/ValidatorMiddleware", function () {
             extraAttribute: "this should fail",
           },
         },
-        {
-          status: () => ({ json: respSpy }),
-        },
+        { status: () => ({ json: respSpy }) },
         nextSpy
       );
       expect(respSpy).to.be.calledWithMatch({ status: "error" });
