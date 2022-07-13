@@ -3,7 +3,7 @@ const itemsService = require("../services/itemsService");
 const get = async (_req, res) => {
   const result = await itemsService.getItems();
   if (result.status === "error") {
-    res.json({
+    res.status(result.errorType).json({
       status: "error",
       message: result.errorMessage,
     });
@@ -20,7 +20,7 @@ const post = async (req, res) => {
   const newItem = req.body;
   const result = await itemsService.createItem(newItem);
   if (result.status === "error") {
-    res.json({
+    res.status(result.errorType).json({
       status: "error",
       message: result.errorMessage,
     });
@@ -37,7 +37,7 @@ const put = async (req, res) => {
   const modifiedItem = req.body;
   const result = await itemsService.updateItem(modifiedItem);
   if (result.status === "error") {
-    res.json({
+    res.status(result.errorType).json({
       status: "error",
       message: result.errorMessage,
     });
@@ -53,14 +53,14 @@ const put = async (req, res) => {
 const getWithId = async (req, res) => {
   const itemId = parseInt(req.params.id, 10);
   if (Number.isNaN(itemId)) {
-    res.json({
+    res.status(422).json({
       status: "error",
       message: "Item ID is not a number",
     });
   } else {
     const result = await itemsService.getItemWithId(itemId);
     if (result.status === "error") {
-      res.json({
+      res.status(result.errorType).json({
         status: "error",
         message: result.errorMessage,
       });
@@ -77,14 +77,14 @@ const getWithId = async (req, res) => {
 const deleteWithId = async (req, res) => {
   const itemId = parseInt(req.params.id, 10);
   if (Number.isNaN(itemId)) {
-    res.json({
+    res.status(422).json({
       status: "error",
       message: "Item ID is not a number",
     });
   } else {
     const result = await itemsService.deleteItemWithId(itemId);
     if (result.status === "error") {
-      res.json({
+      res.status(result.errorType).json({
         status: "error",
         message: result.errorMessage,
       });

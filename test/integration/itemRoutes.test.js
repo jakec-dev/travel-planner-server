@@ -7,19 +7,21 @@ const itemsData = require("../../data/itemsData");
 chai.use(chaiHttp);
 const { expect } = chai;
 
-//
-// TO DO:
-// Look into https://stackoverflow.com/questions/57176000/sinon-js-stub-http-request / https://www.npmjs.com/package/proxyquire
-// for mocking http requests
-//
-
 describe("routes/itemRoutes", function () {
   describe("GET /items", function () {
-    it("should return all items", function () {
-      const selectItemRecordsStub = sinon.stub(itemsData, "selectItemRecords");
-      selectItemRecordsStub.returns(
-        Promise.resolve([{ id: 1, name: "stub test", brand: "test" }])
-      );
+    let selectItemRecordsStub;
+    beforeEach(function () {
+      selectItemRecordsStub = sinon.stub(itemsData, "selectItemRecords");
+    });
+    afterEach(function () {
+      selectItemRecordsStub.restore();
+    });
+    it("should return all items", function (done) {
+      const items = [
+        { id: 1, name: "test name", brand: "test brand" },
+        { id: 2, name: "test name 2", brand: "test brand 2" },
+      ];
+      selectItemRecordsStub.resolves(items);
       chai
         .request(app)
         .get("/items")
@@ -27,22 +29,133 @@ describe("routes/itemRoutes", function () {
           expect(err).to.be.null;
           expect(resp).to.have.status(200);
           expect(resp.body.status).to.equal("success");
-          expect(resp.body.data).to.be.an("array");
-          if (resp.body.data.length > 0) {
-            resp.body.data.forEach((item) => {
-              expect(item).to.have.property("id").that.is.a("number");
-              expect(item).to.have.property("name").that.is.a("string");
-              expect(item).to.have.property("brand").that.is.a("string");
-              expect(item.name).to.equal("stub test");
-            });
-          }
+          expect(resp.body.data).to.eql(items);
+          done();
+        });
+    });
+  });
+
+  describe("POST /items", function () {
+    let insertItemRecordStub;
+    beforeEach(function () {
+      insertItemRecordStub = sinon.stub(itemsData, "insertItemRecord");
+    });
+    afterEach(function () {
+      insertItemRecordStub.restore();
+    });
+    it("should return the new item including ID", function (done) {
+      const newItem = {
+        name: "new item name",
+        brand: "new item brand",
+      };
+      insertItemRecordStub.resolves({ ...newItem, id: 1 });
+      chai
+        .request(app)
+        .post("/items")
+        .send(newItem)
+        .end((err, resp) => {
+          expect(err).to.be.null;
+          expect(resp).to.have.status(200);
+          expect(resp.body.status).to.equal("success");
+          expect(resp.body.data).to.include(newItem);
+          expect(resp.body.data).to.have.property("id");
+          done();
+        });
+    });
+    it("should return an error if no name is provided", function (done) {
+      const newItem = {
+        brand: "new item brand",
+      };
+      chai
+        .request(app)
+        .post("/items")
+        .send(newItem)
+        .end((err, resp) => {
+          expect(err).to.be.null;
+          expect(resp).to.have.status(422);
+          expect(resp.body.status).to.equal("error");
+          done();
+        });
+    });
+  });
+
+  describe("PUT /items", function () {
+    let updateItemRecordStub;
+    beforeEach(function () {
+      updateItemRecordStub = sinon.stub(itemsData, "updateItemRecord");
+    });
+    afterEach(function () {
+      updateItemRecordStub.restore();
+    });
+    it("should return the updated item", function (done) {
+      const modifiedItem = {
+        id: 1,
+        name: "modified name",
+        brand: "modified brand",
+      };
+      updateItemRecordStub.resolves(modifiedItem);
+      chai
+        .request(app)
+        .put("/items")
+        .send(modifiedItem)
+        .end((err, resp) => {
+          expect(err).to.be.null;
+          expect(resp).to.have.status(200);
+          expect(resp.body.status).to.equal("success");
+          expect(resp.body.data).to.eql(modifiedItem);
+          done();
+        });
+    });
+    it("should return an error if no item with ID exists", function (done) {
+      const modifiedItem = {
+        id: 1,
+        name: "modified name",
+        brand: "modified brand",
+      };
+      updateItemRecordStub.resolves({ affectedRows: 0 });
+      chai
+        .request(app)
+        .put("/items")
+        .send(modifiedItem)
+        .end((err, resp) => {
+          expect(err).to.be.null;
+          expect(resp).to.have.status(404);
+          expect(resp.body.status).to.equal("error");
+          expect(resp.body).to.not.have.property("data");
+          done();
+        });
+    });
+    it("should return an error if no name is provided", function (done) {
+      const modifiedItem = {
+        id: 1,
+        brand: "modified brand",
+      };
+      chai
+        .request(app)
+        .put("/items")
+        .send(modifiedItem)
+        .end((err, resp) => {
+          expect(err).to.be.null;
+          expect(resp).to.have.status(422);
+          expect(resp.body.status).to.equal("error");
+          done();
         });
     });
   });
 
   describe("GET /items/:id", function () {
-    it("should return the item", function () {
+    let selectItemRecordsStub;
+    beforeEach(function () {
+      selectItemRecordsStub = sinon.stub(itemsData, "selectItemRecords");
+    });
+    afterEach(function () {
+      selectItemRecordsStub.restore();
+    });
+    // afterEach(function () {});
+    it("should return the item", function (done) {
       const itemId = "3";
+      const items = [{ id: 3, name: "test name", brand: "test brand" }];
+      selectItemRecordsStub.resolves(items);
       chai
         .request(app)
         .get(`/items/${itemId}`)
@@ -50,112 +163,87 @@ describe("routes/itemRoutes", function () {
           expect(err).to.be.null;
           expect(resp).to.have.status(200);
           expect(resp.body.status).to.equal("success");
-          expect(resp.body.data).to.be.an("object");
-          expect(resp.body.data)
-            .to.have.property("id")
-            .that.equals(parseInt(itemId, 10));
-          expect(resp.body.data).to.have.property("name");
-          expect(resp.body.data).to.have.property("brand");
+          expect(resp.body.data).to.eql(items[0]);
+          done();
         });
     });
-    it("should return an error status if no item exists with ID", function () {
-      const itemId = "2";
+    it("should return an error status if no item exists with ID", function (done) {
+      const itemId = "3";
+      selectItemRecordsStub.resolves([]);
       chai
         .request(app)
         .get(`/items/${itemId}`)
         .end((err, resp) => {
           expect(err).to.be.null;
-          expect(resp).to.have.status(200);
+          expect(resp).to.have.status(404);
           expect(resp.body.status).to.equal("error");
           expect(resp.body).to.not.have.property("data");
+          done();
         });
     });
-    it("should return an error status if ID is not a number", function () {
-      const itemId = "a";
+    it("should return an error status if ID is not a number", function (done) {
+      const itemId = "string";
       chai
         .request(app)
         .get(`/items/${itemId}`)
         .end((err, resp) => {
           expect(err).to.be.null;
-          expect(resp).to.have.status(200);
+          expect(resp).to.have.status(422);
           expect(resp.body.status).to.equal("error");
           expect(resp.body).to.not.have.property("data");
+          done();
         });
     });
   });
 
-  // describe("POST /items", function () {
-  //   it("should return the new item with it's ID", function () {
-  //     const newItem = {
-  //       name: "test name 123",
-  //       brand: "test brand",
-  //     };
-  //     chai
-  //       .request(app)
-  //       .post("/items")
-  //       .send(newItem)
-  //       .end((err, resp) => {
-  //         expect(err).to.be.null;
-  //         expect(resp).to.have.status(200);
-  //         expect(resp.body.data).to.include(newItem);
-  //         expect(resp.body.data).to.have.property("id");
-  //       });
-  //   });
-  //   it("should return an error if no name is provided", function () {
-  //     const newItem = {
-  //       brand: "test brand",
-  //     };
-  //     chai
-  //       .request(app)
-  //       .post("/items")
-  //       .send(newItem)
-  //       .end((err, resp) => {
-  //         expect(err).to.be.null;
-  //         expect(resp).to.have.status(422);
-  //         expect(resp.body.status).to.eql("error");
-  //       });
-  //   });
-  // });
-
-  // describe("PUT /items", function () {
-  //   it("should update the item", function () {});
-  //   it("should return the updated item", function () {});
-  //   it("should return an error if no item with ID exists", function () {});
-  //   it("should return an error if no name is provided", function () {});
-  // });
-
-  // describe("GET /items/:id", function () {
-  //   it("should return the item", function () {
-  //     chai
-  //       .request(app)
-  //       .get("/items/2")
-  //       .end((err, resp) => {
-  //         expect(resp).to.have.status(200);
-  //         expect(err).to.be.null;
-  //         expect(resp.body.data).to.eql({
-  //           id: 2,
-  //           name: "Shoes",
-  //           brand: "Nike",
-  //         });
-  //       });
-  //   });
-  //   it("should return an error if no item with ID exists", function () {
-  //     chai
-  //       .request(app)
-  //       .get("/items/55")
-  //       .end((err, resp) => {
-  //         expect(resp).to.have.status(422);
-  //         expect(err).to.be.null;
-  //         expect(resp.body.status).to.eql("error");
-  //       });
-  //   });
-  //   it("should return an error if id is not a number", function () {});
-  // });
-
-  // describe("DELETE /items/:id", function () {
-  //   it("should delete the item", function () {});
-  //   it("should return the deleted item", function () {});
-  //   it("should return an error if no item with ID exists", function () {});
-  //   it("should return an error if ID is not a number", function () {});
-  // });
+  describe("DELETE /items/:id", function () {
+    let deleteItemRecordsStub;
+    beforeEach(function () {
+      deleteItemRecordsStub = sinon.stub(itemsData, "deleteItemRecords");
+    });
+    afterEach(function () {
+      deleteItemRecordsStub.restore();
+    });
+    it("should return the deleted item's ID", function (done) {
+      const itemId = "3";
+      deleteItemRecordsStub.resolves({ affectedRows: 1 });
+      chai
+        .request(app)
+        .delete(`/items/${itemId}`)
+        .end((err, resp) => {
+          expect(err).to.be.null;
+          expect(resp).to.have.status(200);
+          expect(resp.body.status).to.equal("success");
+          expect(resp.body.data).to.eql(parseInt(itemId, 10));
+          done();
+        });
+    });
+    it("should return an error if no item with ID exists", function (done) {
+      const itemId = "1";
+      deleteItemRecordsStub.resolves({ affectedRows: 0 });
+      chai
+        .request(app)
+        .delete(`/items/${itemId}`)
+        .end((err, resp) => {
+          expect(err).to.be.null;
+          expect(resp).to.have.status(404);
+          expect(resp.body.status).to.equal("error");
+          expect(resp.body).to.not.have.property("data");
+          done();
+        });
+    });
+    it("should return an error if ID is not a number", function (done) {
+      const itemId = "string";
+      chai
+        .request(app)
+        .delete(`/items/${itemId}`)
+        .end((err, resp) => {
+          expect(err).to.be.null;
+          expect(resp).to.have.status(422);
+          expect(resp.body.status).to.equal("error");
+          expect(resp.body).to.not.have.property("data");
+          done();
+        });
+    });
+  });
 });

@@ -10,6 +10,7 @@ const getItems = async () => {
   } catch (err) {
     return {
       status: "error",
+      errorType: 400,
       errorMessage: err.message,
     };
   }
@@ -25,6 +26,7 @@ const createItem = async (newItem) => {
   } catch (err) {
     return {
       status: "error",
+      errorType: 400,
       errorMessage: err.message,
     };
   }
@@ -36,13 +38,8 @@ const updateItem = async (modifiedItem) => {
     if (result.affectedRows === 0) {
       return {
         status: "error",
+        errorType: 404,
         errorMessage: `No item with ID ${modifiedItem.id} exists`,
-      };
-    }
-    if (result.changedRows === 0) {
-      return {
-        status: "success",
-        data: modifiedItem,
       };
     }
     return {
@@ -52,6 +49,7 @@ const updateItem = async (modifiedItem) => {
   } catch (err) {
     return {
       status: "error",
+      errorType: 400,
       errorMessage: err.message,
     };
   }
@@ -63,6 +61,7 @@ const getItemWithId = async (itemId) => {
     if (result.length === 0) {
       return {
         status: "error",
+        errorType: 404,
         errorMessage: `No item with ID ${itemId} exists`,
       };
     }
@@ -73,6 +72,7 @@ const getItemWithId = async (itemId) => {
   } catch (err) {
     return {
       status: "error",
+      errorType: 400,
       errorMessage: err.message,
     };
   }
@@ -84,6 +84,7 @@ const deleteItemWithId = async (itemId) => {
     if (result.affectedRows === 0) {
       return {
         status: "error",
+        errorType: 404,
         errorMessage: `No item with ID ${itemId} exists`,
       };
     }
@@ -94,6 +95,7 @@ const deleteItemWithId = async (itemId) => {
   } catch (err) {
     return {
       status: "error",
+      errorType: 400,
       errorMessage: err.message,
     };
   }

@@ -8,12 +8,20 @@ chai.use(sinonChai);
 const { expect } = chai;
 
 describe("controllers/itemsController.js", function () {
+  let res;
+  beforeEach(function () {
+    res = {
+      status(s) {
+        this.statusCode = s;
+        return this;
+      },
+      json: sinon.spy(),
+    };
+  });
   describe("get", function () {
     let getItemsStub;
-    let res;
     beforeEach(function () {
       getItemsStub = sinon.stub(itemsService, "getItems");
-      res = { json: sinon.spy() };
     });
     afterEach(function () {
       getItemsStub.restore();
@@ -40,9 +48,11 @@ describe("controllers/itemsController.js", function () {
       const req = {};
       getItemsStub.returns({
         status: "error",
+        errorType: 400,
         errorMessage: "Test error message",
       });
       await itemsController.get(req, res);
+      expect(res.statusCode).to.equal(400);
       expect(res.json).to.have.been.calledWithMatch({
         status: "error",
         message: "Test error message",
@@ -52,10 +62,8 @@ describe("controllers/itemsController.js", function () {
 
   describe("post", function () {
     let createItemStub;
-    let res;
     beforeEach(function () {
       createItemStub = sinon.stub(itemsService, "createItem");
-      res = { json: sinon.spy() };
     });
     afterEach(function () {
       createItemStub.restore();
@@ -86,9 +94,11 @@ describe("controllers/itemsController.js", function () {
       };
       createItemStub.returns({
         status: "error",
+        errorType: 400,
         errorMessage: "Test error message",
       });
       await itemsController.post(req, res);
+      expect(res.statusCode).to.equal(400);
       expect(res.json).to.have.been.calledWithMatch({
         status: "error",
         message: "Test error message",
@@ -98,10 +108,8 @@ describe("controllers/itemsController.js", function () {
 
   describe("put", function () {
     let updateItemStub;
-    let res;
     beforeEach(function () {
       updateItemStub = sinon.stub(itemsService, "updateItem");
-      res = { json: sinon.spy() };
     });
     afterEach(function () {
       updateItemStub.restore();
@@ -134,9 +142,11 @@ describe("controllers/itemsController.js", function () {
       };
       updateItemStub.returns({
         status: "error",
+        errorType: 400,
         errorMessage: "Test error message",
       });
       await itemsController.put(req, res);
+      expect(res.statusCode).to.equal(400);
       expect(res.json).to.have.been.calledWithMatch({
         status: "error",
         message: "Test error message",
@@ -146,10 +156,8 @@ describe("controllers/itemsController.js", function () {
 
   describe("getWithId", function () {
     let getItemWithIdStub;
-    let res;
     beforeEach(function () {
       getItemWithIdStub = sinon.stub(itemsService, "getItemWithId");
-      res = { json: sinon.spy() };
     });
     afterEach(function () {
       getItemWithIdStub.restore();
@@ -170,9 +178,11 @@ describe("controllers/itemsController.js", function () {
       const req = { params: { id: "1" } };
       getItemWithIdStub.returns({
         status: "error",
+        errorType: 400,
         errorMessage: "Test error message",
       });
       await itemsController.getWithId(req, res);
+      expect(res.statusCode).to.equal(400);
       expect(res.json).to.have.been.calledWithMatch({
         status: "error",
         message: "Test error message",
@@ -181,6 +191,7 @@ describe("controllers/itemsController.js", function () {
     it("should return an error message and error status if ID is not a number", async function () {
       const req = { params: { id: "a" } };
       await itemsController.getWithId(req, res);
+      expect(res.statusCode).to.equal(422);
       expect(res.json).to.have.been.calledWithMatch({
         status: "error",
         message: "Item ID is not a number",
@@ -190,10 +201,8 @@ describe("controllers/itemsController.js", function () {
 
   describe("deleteWithId", function () {
     let deleteItemWithIdStub;
-    let res;
     beforeEach(function () {
       deleteItemWithIdStub = sinon.stub(itemsService, "deleteItemWithId");
-      res = { json: sinon.spy() };
     });
     afterEach(function () {
       deleteItemWithIdStub.restore();
@@ -214,9 +223,11 @@ describe("controllers/itemsController.js", function () {
       const req = { params: { id: "1" } };
       deleteItemWithIdStub.returns({
         status: "error",
+        errorType: 400,
         errorMessage: "Test error message",
       });
       await itemsController.deleteWithId(req, res);
+      expect(res.statusCode).to.equal(400);
       expect(res.json).to.have.been.calledWithMatch({
         status: "error",
         message: "Test error message",
@@ -225,6 +236,7 @@ describe("controllers/itemsController.js", function () {
     it("should return an error message and error status if ID is not a number", async function () {
       const req = { params: { id: "a" } };
       await itemsController.deleteWithId(req, res);
+      expect(res.statusCode).to.equal(422);
       expect(res.json).to.have.been.calledWithMatch({
         status: "error",
         message: "Item ID is not a number",
