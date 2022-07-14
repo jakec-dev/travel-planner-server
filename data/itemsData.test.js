@@ -77,6 +77,20 @@ describe("data/itemsData.js", function () {
         [modifiedItem.name, modifiedItem.brand, modifiedItem.id]
       );
     });
+    it("should return null if no item exists with provided ID", async function () {
+      const modifiedItem = {
+        id: 2,
+        name: "modified name",
+        brand: "test brand",
+      };
+      queryStub.returns({ affectedRows: 0 });
+      const result = await itemsData.updateItemRecord(modifiedItem);
+      expect(result).to.eql(null);
+      expect(queryStub).to.be.calledWith(
+        "UPDATE items SET name = ?, brand = ? WHERE id = ?",
+        [modifiedItem.name, modifiedItem.brand, modifiedItem.id]
+      );
+    });
   });
 
   describe("deleteItemRecords", function () {
