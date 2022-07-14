@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const db = require("./utils/dbPool");
+const db = require("./utils/db");
 const itemsRoutes = require("./routes/itemsRoutes");
 
 const app = express();
@@ -18,7 +18,7 @@ const server = app.listen(app.get("port"), () => {
 });
 
 server.on("close", () => {
-  db.end();
+  db.disconnect();
 });
 
 module.exports = server;

@@ -112,7 +112,7 @@ describe("routes/itemRoutes", function () {
         name: "modified name",
         brand: "modified brand",
       };
-      updateItemRecordStub.resolves({ affectedRows: 0 });
+      updateItemRecordStub.resolves(null);
       chai
         .request(app)
         .put("/items")
@@ -206,7 +206,8 @@ describe("routes/itemRoutes", function () {
     });
     it("should return the deleted item's ID", function (done) {
       const itemId = "3";
-      deleteItemRecordsStub.resolves({ affectedRows: 1 });
+      const itemIdAsNumber = parseInt(itemId, 10);
+      deleteItemRecordsStub.resolves(itemIdAsNumber);
       chai
         .request(app)
         .delete(`/items/${itemId}`)
@@ -214,13 +215,13 @@ describe("routes/itemRoutes", function () {
           expect(err).to.be.null;
           expect(resp).to.have.status(200);
           expect(resp.body.status).to.equal("success");
-          expect(resp.body.data).to.eql(parseInt(itemId, 10));
+          expect(resp.body.data).to.eql(itemIdAsNumber);
           done();
         });
     });
     it("should return an error if no item with ID exists", function (done) {
       const itemId = "1";
-      deleteItemRecordsStub.resolves({ affectedRows: 0 });
+      deleteItemRecordsStub.resolves(null);
       chai
         .request(app)
         .delete(`/items/${itemId}`)

@@ -35,7 +35,7 @@ const createItem = async (newItem) => {
 const updateItem = async (modifiedItem) => {
   try {
     const result = await itemsData.updateItemRecord(modifiedItem);
-    if (result.affectedRows === 0) {
+    if (!result) {
       return {
         status: "error",
         errorType: 404,
@@ -44,7 +44,7 @@ const updateItem = async (modifiedItem) => {
     }
     return {
       status: "success",
-      data: modifiedItem,
+      data: result,
     };
   } catch (err) {
     return {
@@ -81,7 +81,7 @@ const getItemWithId = async (itemId) => {
 const deleteItemWithId = async (itemId) => {
   try {
     const result = await itemsData.deleteItemRecords(itemId);
-    if (result.affectedRows === 0) {
+    if (!result) {
       return {
         status: "error",
         errorType: 404,
@@ -90,7 +90,7 @@ const deleteItemWithId = async (itemId) => {
     }
     return {
       status: "success",
-      data: itemId,
+      data: result,
     };
   } catch (err) {
     return {
