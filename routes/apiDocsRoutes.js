@@ -32,7 +32,7 @@ const router = express.Router();
 router.use(
   "/",
   swaggerUi.serve,
-  swaggerUi.setup(swaggerSpec, { explorer: true })
+  swaggerUi.setup(swaggerSpec, { explorer: true, defaultModelsExpandDepth: -1 })
 );
 
 module.exports = router;
