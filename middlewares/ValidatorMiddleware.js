@@ -1,10 +1,10 @@
 const Validators = require("../validators");
 
-function ValidatorMiddleware(validator) {
-  if (!Object.prototype.hasOwnProperty.call(Validators, validator))
+const ValidatorMiddleware = (validator) => {
+  if (!Object.prototype.hasOwnProperty.call(Validators, validator)) {
     throw new Error(`'${validator}' validator does not exist`);
-
-  return function validate(req, res, next) {
+  }
+  const validate = (req, res, next) => {
     const { error } = Validators[validator].validate(req.body);
     if (error) {
       res.status(422).json({
@@ -16,6 +16,7 @@ function ValidatorMiddleware(validator) {
       next();
     }
   };
-}
+  return validate;
+};
 
 module.exports = ValidatorMiddleware;
