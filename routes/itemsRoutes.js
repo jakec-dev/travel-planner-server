@@ -166,6 +166,15 @@ router.post("/", Validator("newItem"), itemsController.post);
  *                   id: 3
  *                   name: Backpack
  *                   brand: Tom Binh
+ *       404:
+ *         description: Item not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response'
+ *             example:
+ *               status: error
+ *               message: No item with ID 3 exists
  */
 router.put("/", Validator("existingItem"), itemsController.put);
 
@@ -205,7 +214,23 @@ router.put("/", Validator("existingItem"), itemsController.put);
  *                   name: Backpack
  *                   brand: Tom Binh
  *       404:
- *         description: An item with the specified ID was not found.
+ *         description: Item not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response'
+ *             example:
+ *               status: error
+ *               message: No item with ID 3 exists
+ *       422:
+ *         description: Invalid item ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response'
+ *             example:
+ *               status: error
+ *               message: Item ID is not a number
  */
 router.get("/:id", itemsController.getWithId);
 
@@ -243,7 +268,23 @@ router.get("/:id", itemsController.getWithId);
  *                 message: Items deleted successfully
  *                 data: 3
  *       404:
- *         description: An item with the specified ID was not found.
+ *         description: Item not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response'
+ *             example:
+ *               status: error
+ *               message: No item with ID 3 exists
+ *       422:
+ *         description: Invalid item ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response'
+ *             example:
+ *               status: error
+ *               message: Item ID is not a number
  */
 router.delete("/:id", itemsController.deleteWithId);
 
