@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const db = require("./utils/db");
 const itemsRoutes = require("./routes/itemsRoutes");
+const apiDocsRoutes = require("./routes/apiDocsRoutes");
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/items", itemsRoutes);
+app.use("/api-docs", apiDocsRoutes);
 
 const server = app.listen(app.get("port"), () => {
   // eslint-disable-next-line no-console
