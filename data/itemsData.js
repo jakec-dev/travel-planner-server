@@ -3,12 +3,8 @@ const db = require("../utils/db");
 const selectItemRecords = async (itemIds) => {
   let sql;
   let params;
-  if (Array.isArray(itemIds)) {
-    const itemIdList = itemIds.join(",");
-    sql = "SELECT * FROM items WHERE id IN ?";
-    params = [itemIdList];
-  } else if (typeof itemIds === "number") {
-    sql = "SELECT * FROM items WHERE id = ?";
+  if (Array.isArray(itemIds) || typeof itemIds === "number") {
+    sql = "SELECT * FROM items WHERE id IN (?)";
     params = [itemIds];
   } else {
     sql = "SELECT * FROM items";
@@ -42,12 +38,8 @@ const updateItemRecord = async (modifiedItem) => {
 const deleteItemRecords = async (itemIds) => {
   let sql;
   let params;
-  if (Array.isArray(itemIds)) {
-    const itemIdList = itemIds.join(",");
-    sql = "DELETE FROM items WHERE id IN ?";
-    params = [itemIdList];
-  } else if (typeof itemIds === "number") {
-    sql = "DELETE FROM items WHERE id = ?";
+  if (Array.isArray(itemIds) || typeof itemIds === "number") {
+    sql = "DELETE FROM items WHERE id IN (?)";
     params = [itemIds];
   } else {
     sql = "DELETE FROM items";

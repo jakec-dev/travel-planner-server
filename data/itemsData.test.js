@@ -31,9 +31,10 @@ describe("data/itemsData.js", function () {
       queryStub.returns(item);
       const result = await itemsData.selectItemRecords(1);
       expect(result).to.eql(item);
-      expect(queryStub).to.be.calledWith("SELECT * FROM items WHERE id = ?", [
-        1,
-      ]);
+      expect(queryStub).to.be.calledWith(
+        "SELECT * FROM items WHERE id IN (?)",
+        [1]
+      );
     });
     it("should return an array of items when called with an array of IDs", async function () {
       const items = [
@@ -43,9 +44,10 @@ describe("data/itemsData.js", function () {
       queryStub.returns(items);
       const result = await itemsData.selectItemRecords([1, 3]);
       expect(result).to.eql(items);
-      expect(queryStub).to.be.calledWith("SELECT * FROM items WHERE id IN ?", [
-        "1,3",
-      ]);
+      expect(queryStub).to.be.calledWith(
+        "SELECT * FROM items WHERE id IN (?)",
+        [[1, 3]]
+      );
     });
   });
 
@@ -105,7 +107,7 @@ describe("data/itemsData.js", function () {
       queryStub.returns({ affectedRows: 1 });
       const result = await itemsData.deleteItemRecords(itemId);
       expect(result).to.eql(1);
-      expect(queryStub).to.be.calledWith("DELETE FROM items WHERE id = ?", [
+      expect(queryStub).to.be.calledWith("DELETE FROM items WHERE id IN (?)", [
         itemId,
       ]);
     });
@@ -114,8 +116,8 @@ describe("data/itemsData.js", function () {
       queryStub.returns({ affectedRows: itemIds.length });
       const result = await itemsData.deleteItemRecords(itemIds);
       expect(result).to.eql(itemIds.length);
-      expect(queryStub).to.be.calledWith("DELETE FROM items WHERE id IN ?", [
-        "1,3,5,7",
+      expect(queryStub).to.be.calledWith("DELETE FROM items WHERE id IN (?)", [
+        [1, 3, 5, 7],
       ]);
     });
   });
