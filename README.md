@@ -21,28 +21,27 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <!-- <a href="https://github.com/jakec-dev/travel-planner-server">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
+  </a> -->
 
-<h3 align="center">project_title</h3>
+<h2 align="center">Travel Planner Server</h2>
 
   <p align="center">
-    project_description
+    Backend server for <a href="https://github.com/jakec-dev/travel-planner">Travel Planner</a> app. Performs CRUD operations on the Travel Planner database via REST APIs.
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/jakec-dev/travel-planner-server"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://github.com/jakec-dev/travel-planner-server">View Demo</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/jakec-dev/travel-planner-server/issues">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/jakec-dev/travel-planner-server/issues">Request Feature</a>
   </p>
 </div>
 
@@ -76,22 +75,22 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+Here's a blank template to get started.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
 
-- [![Next][next.js]][next-url]
-- [![React][react.js]][react-url]
-- [![Vue][vue.js]][vue-url]
-- [![Angular][angular.io]][angular-url]
-- [![Svelte][svelte.dev]][svelte-url]
-- [![Laravel][laravel.com]][laravel-url]
-- [![Bootstrap][bootstrap.com]][bootstrap-url]
-- [![JQuery][jquery.com]][jquery-url]
+- [![Node.js][node.js]][node-url]
+- [![Express.js][express.js]][express-url]
+- [![MySQL][mysql]][mysql-url]
+- [![ESLint][eslint]][eslint-url]
+- [![Prettier][prettier]][prettier-url]
+- [![Mocha][mocha]][mocha-url]
+- [![Chai][chai]][chai-url]
+- [![Swagger][swagger]][swagger-url]
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -113,18 +112,24 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/jakec-dev/travel-planner-server.git
    ```
-3. Install NPM packages
+2. Install packages
    ```sh
-   npm install
+   yarn install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
+3. Create an `.env` file in the project root directory and enter your database configuration settings
+   ```sh
+   DB_HOST=database.example.com
+   DB_DATABASE=database-name
+   DB_USER=username
+   DB_PASSWORD=password
+   ```
+4. Start the server
+   ```sh
+   yarn start
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -143,12 +148,15 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-  - [ ] Nested Feature
+### Version 1.0
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+- [x] Create database connection
+- [x] Add route, controller, service and data layers for items
+- [x] Add API documentation
+- [x] Write unit and integration tests
+- [ ] Write project documentation
+
+See the [open issues](https://github.com/jakec-dev/travel-planner-server/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -181,9 +189,13 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Jake Clayton
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+&nbsp;&nbsp;e: <a href="mailto:jake@jakec.dev">jake@jakec.dev</a>
+
+&nbsp;&nbsp;w: <a href="https://jakec.dev">https://jakec.dev</a>
+
+&nbsp;&nbsp;[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -191,41 +203,39 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 
 ## Acknowledgments
 
-- []()
-- []()
-- []()
+- [Harrison Croaker](https://github.com/HcroakerDev)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
+[contributors-shield]: https://img.shields.io/github/contributors/jakec-dev/travel-planner-server.svg?style=for-the-badge
+[contributors-url]: https://github.com/jakec-dev/travel-planner-server/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/jakec-dev/travel-planner-server.svg?style=for-the-badge
+[forks-url]: https://github.com/jakec-dev/travel-planner-server/network/members
+[stars-shield]: https://img.shields.io/github/stars/jakec-dev/travel-planner-server.svg?style=for-the-badge
+[stars-url]: https://github.com/jakec-dev/travel-planner-server/stargazers
+[issues-shield]: https://img.shields.io/github/issues/jakec-dev/travel-planner-server.svg?style=for-the-badge
+[issues-url]: https://github.com/jakec-dev/travel-planner-server/issues
+[license-shield]: https://img.shields.io/github/license/jakec-dev/travel-planner-server.svg?style=for-the-badge
+[license-url]: https://github.com/jakec-dev/travel-planner-server/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white
+[linkedin-url]: https://linkedin.com/in/jakeclayton
 [product-screenshot]: images/screenshot.png
-[next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[next-url]: https://nextjs.org/
-[react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[react-url]: https://reactjs.org/
-[vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[vue-url]: https://vuejs.org/
-[angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[angular-url]: https://angular.io/
-[svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[svelte-url]: https://svelte.dev/
-[laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[laravel-url]: https://laravel.com
-[bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[bootstrap-url]: https://getbootstrap.com
-[jquery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[jquery-url]: https://jquery.com
+[node.js]: https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white
+[node-url]: https://nodejs.org
+[express.js]: https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white
+[express-url]: https://express.js
+[mysql]: https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white
+[mysql-url]: https://www.mysql.com
+[eslint]: https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white
+[eslint-url]: https://eslint.org
+[prettier]: https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E
+[prettier-url]: https://prettier.io/
+[mocha]: https://img.shields.io/badge/Mocha-8D6748?style=for-the-badge&logo=Mocha&logoColor=white
+[mocha-url]: https://mochajs.org
+[chai]: https://img.shields.io/badge/chai-A30701?style=for-the-badge&logo=chai&logoColor=white
+[chai-url]: https://www.chaijs.com/
+[swagger]: https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white
+[swagger-url]: https://swagger.io
