@@ -103,12 +103,10 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+You will need the following software installed in your environment to run this app.
 
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+- [node][node-url] >= 18.2.0
+- [yarn][yarn-url] >= 1.22.19
 
 ### Installation
 
@@ -191,9 +189,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Jake Clayton
 
-&nbsp;&nbsp;e: <a href="mailto:jake@jakec.dev">jake@jakec.dev</a>
+&nbsp;&nbsp;e: [jake@jakec.dev][my-email-url]
 
-&nbsp;&nbsp;w: <a href="https://jakec.dev">https://jakec.dev</a>
+&nbsp;&nbsp;w: [jakec.dev][my-website-url]
 
 &nbsp;&nbsp;[![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -210,6 +208,8 @@ Jake Clayton
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
+[my-email-url]: mailto:jake@jakec.dev
+[my-website-url]: https://jakec.dev
 [contributors-shield]: https://img.shields.io/github/contributors/jakec-dev/travel-planner-server.svg?style=for-the-badge
 [contributors-url]: https://github.com/jakec-dev/travel-planner-server/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/jakec-dev/travel-planner-server.svg?style=for-the-badge
@@ -239,3 +239,4 @@ Jake Clayton
 [chai-url]: https://www.chaijs.com/
 [swagger]: https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white
 [swagger-url]: https://swagger.io
+[yarn-url]: https://yarnpkg.com/
