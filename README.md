@@ -29,7 +29,7 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a> -->
 
-<h2 align="center">Travel Planner Server</h2>
+<h3 align="center">Travel Planner Server</h3>
 
   <p align="center">
     Backend server for <a href="https://github.com/jakec-dev/travel-planner">Travel Planner</a> app. Performs CRUD operations on the Travel Planner database via REST APIs.
