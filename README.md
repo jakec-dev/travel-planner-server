@@ -183,7 +183,7 @@ Send a PUT request to `/items`. The request body should contain the modified ite
 {
   "id": 3,
   "name": "Original item name",
-  "brand": "Updated item brand
+  "brand": "Modified item brand
 }
 ```
 
