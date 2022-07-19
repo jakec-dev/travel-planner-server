@@ -336,8 +336,6 @@ Navigate to `/api-docs` in a web browser.
 
 [![API Docs][api-docs-screenshot]](https://github.com/jakec-dev/travel-planner-server)
 
-_For more examples, please refer to the [Documentation](https://example.com)_
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- ROADMAP -->
