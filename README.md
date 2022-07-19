@@ -117,7 +117,7 @@ This project is the Travel Planner backend server that's responsible for integra
 
 ## Getting Started
 
-To get a local copy up and running follow these simple example steps.
+To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
