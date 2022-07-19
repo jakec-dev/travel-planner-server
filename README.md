@@ -137,7 +137,7 @@ This API is designed to be used in conjunction with the Travel Planner App. It p
 
 ### Create an item
 
-Send a POST request to `/items`. The request body should contain the new item in JSON format, for example:
+Send a POST request to `/items`. The request body should contain the new item, for example:
 
 ```json
 {
