@@ -75,7 +75,7 @@
 
 ## About The Project
 
-<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
+[![API Docs][api-docs-screenshot]](https://github.com/jakec-dev/travel-planner-server)
 
 Here's a blank template to get started.
 
@@ -173,6 +173,8 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+### Getting Started
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- LICENSE -->
@@ -222,7 +224,7 @@ Jake Clayton
 [license-url]: https://github.com/jakec-dev/travel-planner-server/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white
 [linkedin-url]: https://linkedin.com/in/jakeclayton
-[product-screenshot]: images/screenshot.png
+[api-docs-screenshot]: images/api-docs.png
 [node.js]: https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white
 [node-url]: https://nodejs.org
 [express.js]: https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white
