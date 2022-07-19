@@ -191,6 +191,8 @@ const result = createItem({
   .catch((err) => console.log(err));
 ```
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ### Update an Item
 
 Send a PUT request to `/items`. The request body should contain the modified item. The modified item will entirely replace the original item, rather than merge fields, so be sure to merge any existing fields before sending the request. For example:
@@ -233,6 +235,8 @@ const result = updateItem({
   .catch((err) => console.log(err));
 ```
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ### Delete an Item
 
 Send a DELETE request to `/items/:id`, where `:id` is the ID of the item to be deleted. No request body is required.
@@ -260,6 +264,8 @@ const result = deleteItem(4)
   .then((resp) => resp)
   .catch((err) => console.log(err));
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Fetch a Specific Item
 
@@ -289,6 +295,8 @@ const result = fetchItem(2)
   .catch((err) => console.log(err));
 ```
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ### Fetch All Items
 
 Send a GET request to `/items`. No request body is required.
@@ -314,6 +322,8 @@ const result = fetchAllItems()
   .then((resp) => resp)
   .catch((err) => console.log(err));
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Access API Documentation
 
@@ -356,6 +366,8 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ### Testing
 
 This project uses Mocha, Chai, and Sinon for testing, and Istanbul for test coverage reports
@@ -363,6 +375,8 @@ This project uses Mocha, Chai, and Sinon for testing, and Istanbul for test cove
 ```sh
 yarn test
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Linting & Formatting
 
