@@ -4,13 +4,8 @@
 
 ### Added or Changed
 
-- Added this changelog :)
-- Fixed typos in both templates
-- Back to top links
-- Added more "Built With" frameworks/libraries
-- Changed table of contents to start collapsed
-- Added checkboxes for major features on roadmap
-
-### Removed
-
-- Some packages/libraries from acknowledgements I no longer use
+- Created database connection
+- Added route, controller, service and data layers for items
+- Added API documentation
+- Wrote unit and integration tests
+- Wrote project documentation
