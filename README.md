@@ -76,7 +76,7 @@
     <li>
       <a href="#roadmap">Roadmap</a>
       <ul>
-        <li><a href="#version-1.0">Version 1.0</a></li>
+        <li><a href="#version-1">Version 1</a></li>
       </ul>
     </li>
     <li>
@@ -344,7 +344,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Roadmap
 
-### Version 1.0
+### Version 1
 
 - [x] Create database connection
 - [x] Add route, controller, service and data layers for items
