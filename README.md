@@ -62,7 +62,17 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li>
+      <a href="#usage">Usage</a>
+      <ul>
+        <li><a href="#create-an-item">Create an Item</a></li>
+        <li><a href="#update-an-item">Update an Item</a></li>
+        <li><a href="#delete-an-item">Delete an Item</a></li>
+        <li><a href="#fetch-a-specific-item">Fetch a Specific Item</a></li>
+        <li><a href="#fetch-all-items">Fetch All Items</a></li>
+        <li><a href="#access-api-documentation">Access API Documentation</a></li>
+      </ul>
+    </li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -135,7 +145,7 @@ You will need the following software installed in your environment to run this a
 
 This API is designed to be used in conjunction with the Travel Planner App. It provides the following functionality:
 
-### Create an item
+### Create an Item
 
 Send a POST request to `/items`. The request body should contain the new item, for example:
 
@@ -175,7 +185,7 @@ const result = createItem({
   .catch((err) => console.log(err));
 ```
 
-### Update an item
+### Update an Item
 
 Send a PUT request to `/items`. The request body should contain the modified item. The modified item will entirely replace the original item, rather than merge fields, so be sure to merge any existing fields before sending the request. For example:
 
@@ -217,7 +227,7 @@ const result = updateItem({
   .catch((err) => console.log(err));
 ```
 
-### Delete an item
+### Delete an Item
 
 Send a DELETE request to `/items/:id`, where `:id` is the ID of the item to be deleted. No request body is required.
 
@@ -245,7 +255,7 @@ const result = deleteItem(4)
   .catch((err) => console.log(err));
 ```
 
-### Fetch a specific item
+### Fetch a Specific Item
 
 Send a GET request to `/items/:id`, where `:id` is the ID of the item to be fetched. No request body is required.
 
@@ -273,7 +283,7 @@ const result = fetchItem(2)
   .catch((err) => console.log(err));
 ```
 
-### Fetch all items
+### Fetch All Items
 
 Send a GET request to `/items`. No request body is required.
 
