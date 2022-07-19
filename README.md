@@ -183,7 +183,7 @@ Send a PUT request to `/items`. The request body should contain the modified ite
 {
   "id": 3,
   "name": "Original item name",
-  "brand": "Modified item brand
+  "brand": "Updated item brand"
 }
 ```
 
@@ -211,7 +211,7 @@ const updateItem = async (modifiedItem) => {
 const result = updateItem({
   id: 3,
   name: "Original item name",
-  brand: "Modified item brand",
+  brand: "Updated item brand",
 })
   .then((resp) => resp)
   .catch((err) => console.log(err));
