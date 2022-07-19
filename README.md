@@ -329,7 +329,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [x] Add route, controller, service and data layers for items
 - [x] Add API documentation
 - [x] Write unit and integration tests
-- [ ] Write project documentation
+- [x] Write project documentation
 
 See the [open issues](https://github.com/jakec-dev/travel-planner-server/issues) for a full list of proposed features (and known issues).
 
