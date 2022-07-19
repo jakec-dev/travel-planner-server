@@ -356,8 +356,6 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 ### Testing
 
 This project uses Mocha, Chai, and Sinon for testing, and Istanbul for test coverage reports
@@ -377,6 +375,8 @@ yarn lint:fix
 yarn format
 yarn format:write
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- LICENSE -->
 
