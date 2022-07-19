@@ -75,9 +75,7 @@
 
 ## About The Project
 
-[![API Docs][api-docs-screenshot]](https://github.com/jakec-dev/travel-planner-server)
-
-Here's a blank template to get started.
+This project is the Travel Planner backend server that's responsible for integrating the Travel Planner frontend app with the MySQL database that persists data. It deos this by providing REST API endpoints to allow the frontend app to perform CRUD operations on the database.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -98,7 +96,6 @@ Here's a blank template to get started.
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
@@ -136,7 +133,177 @@ You will need the following software installed in your environment to run this a
 
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+This API is designed to be used in conjunction with the Travel Planner App. It provides the following functionality:
+
+### Create an item
+
+Send a POST request to `/items`. The request body should contain the new item in JSON format, for example:
+
+```json
+{
+  "name": "New item name",
+  "brand": "New item brand (optional)"
+}
+```
+
+JavaScript/React example:
+
+```js
+const SERVER_URL = "https://api.example.com";
+
+const createItem = async (newItem) => {
+  try {
+    const resp = await fetch(`${SERVER_URL}/items`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newItem),
+    }).then((res) => res.json());
+    if (resp.status === "error") {
+      throw Error(resp.message);
+    }
+    return resp.data;
+  } catch (err) {
+    throw Error(err);
+  }
+};
+
+const result = createItem({
+  name: "New item name",
+  brand: "New item brand",
+})
+  .then((resp) => resp)
+  .catch((err) => console.log(err));
+```
+
+### Update an item
+
+Send a PUT request to `/items`. The request body should contain the modified item. The modified item will entirely replace the original item, rather than merge fields, so be sure to merge any existing fields before sending the request. For example:
+
+```json
+{
+  "id": 3,
+  "name": "Original item name",
+  "brand": "Updated item brand
+}
+```
+
+JavaScript/React example:
+
+```js
+const SERVER_URL = "https://api.example.com";
+
+const updateItem = async (modifiedItem) => {
+  try {
+    const resp = await fetch(`${SERVER_URL}/items`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(modifiedItem),
+    }).then((res) => res.json());
+    if (resp.status === "error") {
+      throw Error(resp.message);
+    }
+    return resp.data;
+  } catch (err) {
+    throw Error(err);
+  }
+};
+
+const result = updateItem({
+  id: 3,
+  name: "Original item name",
+  brand: "Modified item brand",
+})
+  .then((resp) => resp)
+  .catch((err) => console.log(err));
+```
+
+### Delete an item
+
+Send a DELETE request to `/items/:id`, where `:id` is the ID of the item to be deleted. No request body is required.
+
+JavaScript/React example:
+
+```js
+const SERVER_URL = "https://api.example.com";
+
+const deleteItem = async (id) => {
+  try {
+    const resp = await fetch(`${SERVER_URL}/items/${id}`, {
+      method: "DELETE",
+    }).then((res) => res.json());
+    if (resp.status === "error") {
+      throw Error(resp.message);
+    }
+    return resp.data;
+  } catch (err) {
+    throw Error(err);
+  }
+};
+
+const result = deleteItem(4)
+  .then((resp) => resp)
+  .catch((err) => console.log(err));
+```
+
+### Fetch a specific item
+
+Send a GET request to `/items/:id`, where `:id` is the ID of the item to be fetched. No request body is required.
+
+JavaScript/React example:
+
+```js
+const SERVER_URL = "https://api.example.com";
+
+const fetchItem = async (itemId) => {
+  try {
+    const resp = await fetch(`${SERVER_URL}/items/${itemId}`).then((res) =>
+      res.json()
+    );
+    if (resp.status === "error") {
+      throw Error(resp.message);
+    }
+    return resp.data;
+  } catch (err) {
+    throw Error(err);
+  }
+};
+
+const result = fetchItem(2)
+  .then((resp) => resp)
+  .catch((err) => console.log(err));
+```
+
+### Fetch all items
+
+Send a GET request to `/items`. No request body is required.
+
+JavaScript/React example:
+
+```js
+const SERVER_URL = "https://api.example.com";
+
+const fetchAllItems = async (itemId) => {
+  try {
+    const resp = await fetch(`${SERVER_URL}/items`).then((res) => res.json());
+    if (resp.status === "error") {
+      throw Error(resp.message);
+    }
+    return resp.data;
+  } catch (err) {
+    throw Error(err);
+  }
+};
+
+const result = fetchAllItems()
+  .then((resp) => resp)
+  .catch((err) => console.log(err));
+```
+
+### Access API Documentation
+
+Navigate to `/api-docs` in a web browser.
+
+[![API Docs][api-docs-screenshot]](https://github.com/jakec-dev/travel-planner-server)
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
@@ -172,8 +339,6 @@ Don't forget to give the project a star! Thanks again!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-### Getting Started
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
