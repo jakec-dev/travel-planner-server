@@ -73,7 +73,12 @@
         <li><a href="#access-api-documentation">Access API Documentation</a></li>
       </ul>
     </li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li>
+      <a href="#roadmap">Roadmap</a>
+      <ul>
+        <li><a href="#version-1.0">Version 1.0</a></li>
+      </ul>
+    </li>
     <li>
       <a href="#contributing">Contributing</a>
       <ul>
