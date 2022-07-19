@@ -368,7 +368,7 @@ yarn test
 
 ### Linting & Formatting
 
-This project uses ESLint and Prettier.
+This project uses ESLint for linting using AirBNB's style guide, and Prettier for formatting.
 
 ```sh
 yarn lint
