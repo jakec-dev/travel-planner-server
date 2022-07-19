@@ -20,6 +20,10 @@ const options = {
         url: "http://localhost:5000",
         description: "Development",
       },
+      {
+        url: "https://jakecdev-travel-planner-server.herokuapp.com",
+        description: "Production",
+      },
     ],
   },
   apis: ["./routes/itemsRoutes.js"],
