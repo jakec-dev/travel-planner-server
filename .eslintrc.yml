@@ -1,5 +1,19 @@
 extends:
   - "airbnb-base"
   - "prettier"
+  - "plugin:mocha/recommended"
 plugins:
   - "prettier"
+  - "mocha"
+rules:
+  prefer-arrow-callback: 0
+  mocha/prefer-arrow-callback: 2
+overrides:
+  - files:
+      - "**/*.test.js"
+    rules:
+      func-names: 0
+      no-unused-expressions: 0
+env:
+  node: true
+  mocha: true
