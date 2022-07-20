@@ -7,21 +7,9 @@ const createItem = async (newItem) => itemsData.insertItemRecord(newItem);
 const updateItem = async (modifiedItem) =>
   itemsData.updateItemRecord(modifiedItem);
 
-const getItemWithId = async (itemId) => {
-  const result = await itemsData.selectItemRecords(itemId);
-  if (result.length === 0) {
-    return null;
-  }
-  return result[0];
-};
+const getItemWithId = async (itemId) => itemsData.selectItemRecords(itemId);
 
-const deleteItemWithId = async (itemId) => {
-  const result = await itemsData.deleteItemRecords(itemId);
-  if (result === 0) {
-    return null;
-  }
-  return itemId;
-};
+const deleteItemWithId = async (itemId) => itemsData.deleteItemRecords(itemId);
 
 module.exports = {
   createItem,

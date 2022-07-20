@@ -91,16 +91,10 @@ describe("services/itemsService.js", function () {
     });
     it("should return the item", async function () {
       const item = { id: 1, name: "test name", brand: "test brand" };
-      selectItemRecordsStub.resolves([item]);
+      selectItemRecordsStub.resolves(item);
       const result = await itemsService.getItemWithId(item.id);
       expect(selectItemRecordsStub).to.have.been.calledOnce;
       expect(result).to.eql(item);
-    });
-    it("should return null if no item with ID exists", async function () {
-      selectItemRecordsStub.resolves([]);
-      const result = await itemsService.getItemWithId(1);
-      expect(selectItemRecordsStub).to.have.been.calledOnce;
-      expect(result).to.eql(null);
     });
   });
 
@@ -112,18 +106,12 @@ describe("services/itemsService.js", function () {
     afterEach(function () {
       deleteItemRecordsStub.restore();
     });
-    it("should return the deleted item's ID", async function () {
+    it("should return 1", async function () {
       const itemId = 3;
       deleteItemRecordsStub.resolves(1);
       const result = await itemsService.deleteItemWithId(itemId);
       expect(deleteItemRecordsStub).to.have.been.calledOnce;
-      expect(result).to.eql(itemId);
-    });
-    it("should return null if no item with ID exists", async function () {
-      deleteItemRecordsStub.resolves(0);
-      const result = await itemsService.deleteItemWithId(1);
-      expect(deleteItemRecordsStub).to.have.been.calledOnce;
-      expect(result).to.eql(null);
+      expect(result).to.eql(1);
     });
   });
 });

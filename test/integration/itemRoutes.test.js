@@ -154,8 +154,8 @@ describe("routes/itemRoutes", function () {
     // afterEach(function () {});
     it("should return the item", function (done) {
       const itemId = "3";
-      const items = [{ id: 3, name: "test name", brand: "test brand" }];
-      selectItemRecordsStub.resolves(items);
+      const item = { id: 3, name: "test name", brand: "test brand" };
+      selectItemRecordsStub.resolves(item);
       chai
         .request(app)
         .get(`/items/${itemId}`)
@@ -163,13 +163,13 @@ describe("routes/itemRoutes", function () {
           expect(err).to.be.null;
           expect(resp).to.have.status(200);
           expect(resp.body.status).to.equal("success");
-          expect(resp.body.data).to.eql(items[0]);
+          expect(resp.body.data).to.eql(item);
           done();
         });
     });
     it("should return an error status if no item exists with ID", function (done) {
       const itemId = "3";
-      selectItemRecordsStub.resolves([]);
+      selectItemRecordsStub.resolves(null);
       chai
         .request(app)
         .get(`/items/${itemId}`)
