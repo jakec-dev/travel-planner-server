@@ -120,7 +120,7 @@ router.get("/", itemsController.get);
  *                       $ref: '#/components/schemas/NewItem'
  *               example:
  *                 status: success
- *                 message: Items added successfully
+ *                 message: Item created successfully
  *                 data:
  *                   id: 3
  *                   name: Backpack

@@ -37,7 +37,7 @@
     <a href="https://github.com/jakec-dev/travel-planner-server"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/jakec-dev/travel-planner-server">View Demo</a>
+    <a href="https://jakecdev-travel-planner-server.herokuapp.com/api-docs">View Demo</a>
     ·
     <a href="https://github.com/jakec-dev/travel-planner-server/issues">Report Bug</a>
     ·

@@ -1,5 +1,5 @@
 const mysql = require("mysql2");
-const { database } = require("../config");
+const { database } = require("../../config");
 
 let connection;
 const connect = () => {
