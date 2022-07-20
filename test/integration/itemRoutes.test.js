@@ -221,7 +221,7 @@ describe("routes/itemRoutes", function () {
     });
     it("should return an error if no item with ID exists", function (done) {
       const itemId = "1";
-      deleteItemRecordsStub.resolves(null);
+      deleteItemRecordsStub.resolves(0);
       chai
         .request(app)
         .delete(`/items/${itemId}`)
