@@ -1,104 +1,26 @@
 const itemsData = require("../data/itemsData");
 
-const getItems = async () => {
-  try {
-    const result = await itemsData.selectItemRecords();
-    return {
-      status: "success",
-      data: result,
-    };
-  } catch (err) {
-    return {
-      status: "error",
-      errorType: 400,
-      errorMessage: err.message,
-    };
-  }
-};
+const getItems = async () => itemsData.selectItemRecords();
 
-const createItem = async (newItem) => {
-  try {
-    const result = await itemsData.insertItemRecord(newItem);
-    return {
-      status: "success",
-      data: result,
-    };
-  } catch (err) {
-    return {
-      status: "error",
-      errorType: 400,
-      errorMessage: err.message,
-    };
-  }
-};
+const createItem = async (newItem) => itemsData.insertItemRecord(newItem);
 
-const updateItem = async (modifiedItem) => {
-  try {
-    const result = await itemsData.updateItemRecord(modifiedItem);
-    if (!result) {
-      return {
-        status: "error",
-        errorType: 404,
-        errorMessage: `No item with ID ${modifiedItem.id} exists`,
-      };
-    }
-    return {
-      status: "success",
-      data: result,
-    };
-  } catch (err) {
-    return {
-      status: "error",
-      errorType: 400,
-      errorMessage: err.message,
-    };
-  }
-};
+const updateItem = async (modifiedItem) =>
+  itemsData.updateItemRecord(modifiedItem);
 
 const getItemWithId = async (itemId) => {
-  try {
-    const result = await itemsData.selectItemRecords(itemId);
-    if (result.length === 0) {
-      return {
-        status: "error",
-        errorType: 404,
-        errorMessage: `No item with ID ${itemId} exists`,
-      };
-    }
-    return {
-      status: "success",
-      data: result[0],
-    };
-  } catch (err) {
-    return {
-      status: "error",
-      errorType: 400,
-      errorMessage: err.message,
-    };
+  const result = await itemsData.selectItemRecords(itemId);
+  if (result.length === 0) {
+    return null;
   }
+  return result[0];
 };
 
 const deleteItemWithId = async (itemId) => {
-  try {
-    const result = await itemsData.deleteItemRecords(itemId);
-    if (!result) {
-      return {
-        status: "error",
-        errorType: 404,
-        errorMessage: `No item with ID ${itemId} exists`,
-      };
-    }
-    return {
-      status: "success",
-      data: result,
-    };
-  } catch (err) {
-    return {
-      status: "error",
-      errorType: 400,
-      errorMessage: err.message,
-    };
+  const result = await itemsData.deleteItemRecords(itemId);
+  if (result === 0) {
+    return null;
   }
+  return itemId;
 };
 
 module.exports = {

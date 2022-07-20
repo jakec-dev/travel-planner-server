@@ -16,27 +16,15 @@ describe("services/itemsService.js", function () {
     afterEach(function () {
       selectItemRecordsStub.restore();
     });
-    it("should return all items and success status on success", async function () {
-      selectItemRecordsStub.resolves([
+    it("should return all items", async function () {
+      const allItems = [
         { id: 1, name: "test name 1", brand: "test brand 1" },
         { id: 2, name: "test name 2", brand: "test brand 2" },
-      ]);
-      expect(await itemsService.getItems()).to.eql({
-        status: "success",
-        data: [
-          { id: 1, name: "test name 1", brand: "test brand 1" },
-          { id: 2, name: "test name 2", brand: "test brand 2" },
-        ],
-      });
-    });
-    it("should return an error message and error status on error", async function () {
-      selectItemRecordsStub.rejects(new Error("Test error message"));
+      ];
+      selectItemRecordsStub.resolves(allItems);
       const result = await itemsService.getItems();
-      expect(result).to.eql({
-        status: "error",
-        errorType: 400,
-        errorMessage: "Test error message",
-      });
+      expect(selectItemRecordsStub).to.have.been.calledOnce;
+      expect(result).to.eql(allItems);
     });
   });
 
@@ -48,29 +36,16 @@ describe("services/itemsService.js", function () {
     afterEach(function () {
       insertItemRecordStub.restore();
     });
-    it("should return the created item and success status on success", async function () {
-      insertItemRecordStub.resolves({
-        id: 1,
+    it("should return the new item", async function () {
+      const newItem = {
         name: "test name",
         brand: "test brand",
-      });
-      const result = await itemsService.createItem({
-        name: "test name",
-        brand: "test brand",
-      });
-      expect(result).to.eql({
-        status: "success",
-        data: { id: 1, name: "test name", brand: "test brand" },
-      });
-    });
-    it("should return an error message and error status on error", async function () {
-      insertItemRecordStub.rejects(new Error("Test error message"));
-      const result = await itemsService.createItem();
-      expect(result).to.eql({
-        status: "error",
-        errorType: 400,
-        errorMessage: "Test error message",
-      });
+      };
+      const returnedNewItem = { id: 1, ...newItem };
+      insertItemRecordStub.resolves(returnedNewItem);
+      const result = await itemsService.createItem(newItem);
+      expect(insertItemRecordStub).to.have.been.calledOnce;
+      expect(result).to.eql(returnedNewItem);
     });
   });
 
@@ -82,7 +57,7 @@ describe("services/itemsService.js", function () {
     afterEach(function () {
       updateItemRecordStub.restore();
     });
-    it("should return the modified item and success status on success", async function () {
+    it("should return the modified item", async function () {
       const modifiedItem = {
         id: 1,
         name: "modified test name",
@@ -90,51 +65,19 @@ describe("services/itemsService.js", function () {
       };
       updateItemRecordStub.resolves(modifiedItem);
       const result = await itemsService.updateItem(modifiedItem);
-      expect(result).to.eql({
-        status: "success",
-        data: modifiedItem,
-      });
+      expect(updateItemRecordStub).to.have.been.calledOnce;
+      expect(result).to.eql(modifiedItem);
     });
-    it("should return an error message and error status on error", async function () {
+    it("should return null if no item with ID exists", async function () {
       const modifiedItem = {
-        id: 1,
-        name: "modified test name",
-        brand: "test brand",
-      };
-      updateItemRecordStub.rejects(new Error("Test error message"));
-      const result = await itemsService.updateItem(modifiedItem);
-      expect(result).to.include({
-        status: "error",
-        errorType: 400,
-        errorMessage: "Test error message",
-      });
-    });
-    it("should return an error message, 404 error type and error status if no items exist with provided ID", async function () {
-      const modifiedItem = {
-        id: 1,
+        id: 4,
         name: "modified test name",
         brand: "test brand",
       };
       updateItemRecordStub.resolves(null);
       const result = await itemsService.updateItem(modifiedItem);
-      expect(result).to.eql({
-        status: "error",
-        errorType: 404,
-        errorMessage: "No item with ID 1 exists",
-      });
-    });
-    it("should return the modified item and success status if the modified item is the same as the original item", async function () {
-      const modifiedItem = {
-        id: 1,
-        name: "modified test name",
-        brand: "test brand",
-      };
-      updateItemRecordStub.resolves(modifiedItem);
-      const result = await itemsService.updateItem(modifiedItem);
-      expect(result).to.eql({
-        status: "success",
-        data: modifiedItem,
-      });
+      expect(updateItemRecordStub).to.have.been.calledOnce;
+      expect(result).to.eql(null);
     });
   });
 
@@ -146,33 +89,18 @@ describe("services/itemsService.js", function () {
     afterEach(function () {
       selectItemRecordsStub.restore();
     });
-    it("should return the modified item and success status on success", async function () {
-      selectItemRecordsStub.resolves([
-        { id: 1, name: "test name", brand: "test brand" },
-      ]);
-      const result = await itemsService.getItemWithId(1);
-      expect(result).to.eql({
-        status: "success",
-        data: { id: 1, name: "test name", brand: "test brand" },
-      });
+    it("should return the item", async function () {
+      const item = { id: 1, name: "test name", brand: "test brand" };
+      selectItemRecordsStub.resolves([item]);
+      const result = await itemsService.getItemWithId(item.id);
+      expect(selectItemRecordsStub).to.have.been.calledOnce;
+      expect(result).to.eql(item);
     });
-    it("should return an error message and error status on error", async function () {
-      selectItemRecordsStub.rejects(new Error("Test error message"));
-      const result = await itemsService.getItemWithId(1);
-      expect(result).to.include({
-        status: "error",
-        errorType: 400,
-        errorMessage: "Test error message",
-      });
-    });
-    it("should return an error message, 404 error type and error status if no items exist with provided ID", async function () {
+    it("should return null if no item with ID exists", async function () {
       selectItemRecordsStub.resolves([]);
       const result = await itemsService.getItemWithId(1);
-      expect(result).to.eql({
-        status: "error",
-        errorType: 404,
-        errorMessage: "No item with ID 1 exists",
-      });
+      expect(selectItemRecordsStub).to.have.been.calledOnce;
+      expect(result).to.eql(null);
     });
   });
 
@@ -184,34 +112,18 @@ describe("services/itemsService.js", function () {
     afterEach(function () {
       deleteItemRecordsStub.restore();
     });
-    it("should return the deleted item's ID and success status on success", async function () {
-      const itemId = 1;
-      deleteItemRecordsStub.resolves(itemId);
+    it("should return the deleted item's ID", async function () {
+      const itemId = 3;
+      deleteItemRecordsStub.resolves(1);
       const result = await itemsService.deleteItemWithId(itemId);
-      expect(result).to.eql({
-        status: "success",
-        data: itemId,
-      });
+      expect(deleteItemRecordsStub).to.have.been.calledOnce;
+      expect(result).to.eql(itemId);
     });
-    it("should return an error message and error status on error", async function () {
-      deleteItemRecordsStub.rejects(new Error("Test error message"));
-      const itemId = 1;
-      const result = await itemsService.deleteItemWithId(itemId);
-      expect(result).to.eql({
-        status: "error",
-        errorType: 400,
-        errorMessage: "Test error message",
-      });
-    });
-    it("should return an error message and error status if no items exist with provided ID", async function () {
-      const itemId = 1;
-      deleteItemRecordsStub.resolves(null);
-      const result = await itemsService.deleteItemWithId(itemId);
-      expect(result).to.eql({
-        status: "error",
-        errorType: 404,
-        errorMessage: "No item with ID 1 exists",
-      });
+    it("should return null if no item with ID exists", async function () {
+      deleteItemRecordsStub.resolves(0);
+      const result = await itemsService.deleteItemWithId(1);
+      expect(deleteItemRecordsStub).to.have.been.calledOnce;
+      expect(result).to.eql(null);
     });
   });
 });
