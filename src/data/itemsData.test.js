@@ -28,8 +28,8 @@ describe("data/itemsData.js", function () {
     });
     it("should return a single item when called with a single ID", async function () {
       const item = { id: 1, name: "test name 1", brand: "test brand 1" };
-      queryStub.returns(item);
-      const result = await itemsData.selectItemRecords(1);
+      queryStub.returns([item]);
+      const result = await itemsData.selectItemRecords(item.id);
       expect(result).to.eql(item);
       expect(queryStub).to.be.calledWith(
         "SELECT * FROM items WHERE id IN (?)",
@@ -48,6 +48,11 @@ describe("data/itemsData.js", function () {
         "SELECT * FROM items WHERE id IN (?)",
         [[1, 3]]
       );
+    });
+    it("should return null if no items with ID exists", async function () {
+      queryStub.resolves([]);
+      const result = await itemsData.selectItemRecords(1);
+      expect(result).to.eql(null);
     });
   });
 
@@ -111,11 +116,11 @@ describe("data/itemsData.js", function () {
         itemId,
       ]);
     });
-    it("should return array length when called with an array of IDs", async function () {
+    it("should return number of affected rows when called with an array of IDs", async function () {
       const itemIds = [1, 3, 5, 7];
-      queryStub.returns({ affectedRows: itemIds.length });
+      queryStub.returns({ affectedRows: 3 });
       const result = await itemsData.deleteItemRecords(itemIds);
-      expect(result).to.eql(itemIds.length);
+      expect(result).to.eql(3);
       expect(queryStub).to.be.calledWith("DELETE FROM items WHERE id IN (?)", [
         [1, 3, 5, 7],
       ]);

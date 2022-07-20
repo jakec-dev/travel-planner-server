@@ -120,11 +120,22 @@ router.get("/", itemsController.get);
  *                       $ref: '#/components/schemas/NewItem'
  *               example:
  *                 status: success
- *                 message: Items added successfully
+ *                 message: Item created successfully
  *                 data:
  *                   id: 3
  *                   name: Backpack
  *                   brand: Osprey
+ *       422:
+ *         description: Item is missing required properties
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response'
+ *             example:
+ *               status: error
+ *               message: Invalid request data
+ *               data:
+ *                 brand: Osprey
  */
 router.post("/", Validator("newItem"), itemsController.post);
 
@@ -175,6 +186,17 @@ router.post("/", Validator("newItem"), itemsController.post);
  *             example:
  *               status: error
  *               message: No item with ID 3 exists
+ *       422:
+ *         description: Item is missing required properties
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response'
+ *             example:
+ *               status: error
+ *               message: Invalid request data
+ *               data:
+ *                 brand: Osprey
  */
 router.put("/", Validator("existingItem"), itemsController.put);
 
