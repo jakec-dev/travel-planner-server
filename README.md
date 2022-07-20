@@ -96,7 +96,7 @@
 
 ## About The Project
 
-This project is the Travel Planner backend server that's responsible for integrating the Travel Planner frontend app with the MySQL database that persists data. It deos this by providing REST API endpoints to allow the frontend app to perform CRUD operations on the database.
+This project is the Travel Planner backend server that's responsible for integrating the Travel Planner frontend app with the MySQL database that persists data. It does this by providing REST API endpoints to allow the frontend app to perform CRUD operations on the database.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
