@@ -10,6 +10,12 @@ const selectItemRecords = async (itemIds) => {
     sql = "SELECT * FROM items";
   }
   const result = await db.query(sql, params);
+  if (result.length === 0) {
+    return null;
+  }
+  if (result.length === 1) {
+    return result[0];
+  }
   return result;
 };
 
