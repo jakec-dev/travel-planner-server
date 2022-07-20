@@ -26,7 +26,7 @@ const options = {
       },
     ],
   },
-  apis: ["./routes/itemsRoutes.js"],
+  apis: ["./src/routes/itemsRoutes.js"],
 };
 
 const swaggerSpec = swaggerJsDoc(options);
@@ -36,7 +36,7 @@ const router = express.Router();
 router.use(
   "/",
   swaggerUi.serve,
-  swaggerUi.setup(swaggerSpec, { explorer: true, defaultModelsExpandDepth: -1 })
+  swaggerUi.setup(swaggerSpec, { explorer: true })
 );
 
 module.exports = router;
