@@ -58,13 +58,27 @@ describe("data/itemsData.js", function () {
 
   describe("insertItemRecord", function () {
     it("should return the new item", async function () {
-      const newItem = { name: "test name", brand: "test brand" };
+      const newItem = {
+        name: "test name",
+        brand: "test brand",
+        weight: 20,
+        url: "https://www.example.com",
+        price: 123.45,
+        notes: "test notes",
+      };
       queryStub.returns({ insertId: 1 });
       const result = await itemsData.insertItemRecord(newItem);
       expect(result).to.eql({ ...newItem, id: 1 });
       expect(queryStub).to.be.calledWith(
-        "INSERT INTO items (name, brand) VALUES (?, ?)",
-        [newItem.name, newItem.brand]
+        "INSERT INTO items (name, brand, weight, url, price, notes) VALUES (?, ?, ?, ?, ?, ?)",
+        [
+          newItem.name,
+          newItem.brand,
+          newItem.weight,
+          newItem.url,
+          newItem.price,
+          newItem.notes,
+        ]
       );
     });
   });
