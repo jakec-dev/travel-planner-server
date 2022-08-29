@@ -13,16 +13,17 @@ const selectItemRecords = async (itemIds) => {
   if (result.length === 0) {
     return null;
   }
-  if (result.length === 1) {
+  if (result.length === 1 && typeof itemIds === "number") {
     return result[0];
   }
   return result;
 };
 
 const insertItemRecord = async (newItem) => {
-  const { name, brand } = newItem;
-  const sql = "INSERT INTO items (name, brand) VALUES (?, ?)";
-  const params = [name, brand];
+  const { name, brand, weight, url, price, notes } = newItem;
+  const sql =
+    "INSERT INTO items (name, brand, weight, url, price, notes) VALUES (?, ?, ?, ?, ?, ?)";
+  const params = [name, brand, weight, url, price, notes];
   const result = await db.query(sql, params);
   return {
     ...newItem,

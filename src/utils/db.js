@@ -8,6 +8,7 @@ const connect = () => {
     mysql.createPool({
       ...database,
       connectionLimit: 10,
+      decimalNumbers: true,
     });
   return connection;
 };
