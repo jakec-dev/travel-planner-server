@@ -94,8 +94,16 @@ describe("data/itemsData.js", function () {
       const result = await itemsData.updateItemRecord(modifiedItem);
       expect(result).to.eql(modifiedItem);
       expect(queryStub).to.be.calledWith(
-        "UPDATE items SET name = ?, brand = ? WHERE id = ?",
-        [modifiedItem.name, modifiedItem.brand, modifiedItem.id]
+        "UPDATE items SET name = ?, brand = ?, weight = ?, url = ?, price = ?, notes = ? WHERE id = ?",
+        [
+          modifiedItem.name,
+          modifiedItem.brand,
+          modifiedItem.weight,
+          modifiedItem.url,
+          modifiedItem.price,
+          modifiedItem.notes,
+          modifiedItem.id,
+        ]
       );
     });
     it("should return null if no item exists with provided ID", async function () {
@@ -108,8 +116,16 @@ describe("data/itemsData.js", function () {
       const result = await itemsData.updateItemRecord(modifiedItem);
       expect(result).to.eql(null);
       expect(queryStub).to.be.calledWith(
-        "UPDATE items SET name = ?, brand = ? WHERE id = ?",
-        [modifiedItem.name, modifiedItem.brand, modifiedItem.id]
+        "UPDATE items SET name = ?, brand = ?, weight = ?, url = ?, price = ?, notes = ? WHERE id = ?",
+        [
+          modifiedItem.name,
+          modifiedItem.brand,
+          modifiedItem.weight,
+          modifiedItem.url,
+          modifiedItem.price,
+          modifiedItem.notes,
+          modifiedItem.id,
+        ]
       );
     });
   });
