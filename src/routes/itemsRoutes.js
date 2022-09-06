@@ -28,17 +28,33 @@ const router = express.Router();
  *       properties:
  *         id:
  *           type: integer
- *           description: The Auto-generated id of a post
+ *           description: The Auto-generated ID for an item
  *         name:
  *           type: string
  *           description: Name of the item
  *         brand:
  *           type: string
  *           descripton: Brand of the item
+ *         weight:
+ *           type: number
+ *           descripton: Weight of the item in grams
+ *         url:
+ *           type: string
+ *           descripton: URL to the item's listing online
+ *         price:
+ *           type: number
+ *           descripton: Price of the item
+ *         notes:
+ *           type: string
+ *           descripton: Additional notes about the item
  *       example:
  *         id: 1
  *         name: Backpack
  *         brand: Osprey
+ *         weight: 920
+ *         url: https://www.osprey.com/backpack
+ *         price: 249.95
+ *         notes: 2022 model in black
  *     NewItem:
  *       type: object
  *       required:
@@ -50,9 +66,25 @@ const router = express.Router();
  *         brand:
  *           type: string
  *           descripton: Brand of the item
+ *         weight:
+ *           type: number
+ *           descripton: Weight of the item in grams
+ *         url:
+ *           type: string
+ *           descripton: URL to the item's listing online
+ *         price:
+ *           type: number
+ *           descripton: Price of the item
+ *         notes:
+ *           type: string
+ *           descripton: Additional notes about the item
  *       example:
  *         name: Backpack
  *         brand: Osprey
+ *         weight: 920
+ *         url: https://www.osprey.com/backpack
+ *         price: 249.95
+ *         notes: 2022 model in black
  */
 
 /**
@@ -85,9 +117,17 @@ const router = express.Router();
  *                   - id: 1
  *                     name: Backpack
  *                     brand: Osprey
+ *                     weight: 920
+ *                     url: https://www.osprey.com/backpack
+ *                     price: 249.95
+ *                     notes: 2022 model in black
  *                   - id: 2
  *                     name: Shoes
  *                     brand: Nike
+ *                     weight: 540
+ *                     url: https://www.nike.com/shoes
+ *                     price: 200
+ *                     notes: 2020 model in blue/white
  */
 router.get("/", itemsController.get);
 
@@ -125,6 +165,10 @@ router.get("/", itemsController.get);
  *                   id: 3
  *                   name: Backpack
  *                   brand: Osprey
+ *                   weight: 920
+ *                   url: https://www.osprey.com/backpack
+ *                   price: 249.95
+ *                   notes: 2022 model in black
  *       422:
  *         description: Item is missing required properties
  *         content:
@@ -136,6 +180,8 @@ router.get("/", itemsController.get);
  *               message: Invalid request data
  *               data:
  *                 brand: Osprey
+ *                 weight: 920
+ *                 price: 249.95
  */
 router.post("/", Validator("newItem"), itemsController.post);
 
@@ -156,6 +202,10 @@ router.post("/", Validator("newItem"), itemsController.post);
  *             id: 3
  *             name: Backpack
  *             brand: Tom Binh
+ *             weight: 850
+ *             url: https://www.tombinh.com/backpack
+ *             price: 249.99
+ *             notes: 2022 model in forest green
  *     responses:
  *       200:
  *         description: OK
@@ -177,6 +227,10 @@ router.post("/", Validator("newItem"), itemsController.post);
  *                   id: 3
  *                   name: Backpack
  *                   brand: Tom Binh
+ *                   weight: 850
+ *                   url: https://www.tombinh.com/backpack
+ *                   price: 249.99
+ *                   notes: 2022 model in forest green
  *       404:
  *         description: Item not found
  *         content:
@@ -235,6 +289,10 @@ router.put("/", Validator("existingItem"), itemsController.put);
  *                   id: 3
  *                   name: Backpack
  *                   brand: Tom Binh
+ *                   weight: 850
+ *                   url: https://www.tombinh.com/backpack
+ *                   price: 249.99
+ *                   notes: 2022 model in forest green
  *       404:
  *         description: Item not found
  *         content:
