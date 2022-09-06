@@ -35,7 +35,7 @@ const post = async (req, res) => {
 
 const put = async (req, res) => {
   try {
-    const modifiedItem = req.body;
+    const modifiedItem = req.body; // convert "" to undefined here?
     const result = await itemsService.updateItem(modifiedItem);
     if (!result) {
       res.status(404).json({
