@@ -17,7 +17,7 @@
     "format:write": "prettier --write ."
   },
   "dependencies": {
-    "apollo-server": "^3.10.2",
+    "apollo-server-express": "^3.10.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
