@@ -11,7 +11,17 @@ const typeDefs = gql`
     notes: String
   }
 
-  input ItemInput {
+  input NewItemInput {
+    name: String!
+    brand: String
+    weight: Int
+    url: String
+    price: Float
+    notes: String
+  }
+
+  input ExistingItemInput {
+    id: ID!
     name: String!
     brand: String
     weight: Int
@@ -26,9 +36,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addItem(input: ItemInput!): ItemResponse!
-    updateItem(id: ID!, input: ItemInput): ItemResponse!
-    deleteItem(id: ID!): ItemIDResponse!
+    addItem(newItem: NewItemInput!): ItemResponse!
+    updateItem(modifiedItem: ExistingItemInput!): ItemResponse!
+    deleteItem(itemId: ID!): ItemIDResponse!
   }
 
   type ItemResponse {
