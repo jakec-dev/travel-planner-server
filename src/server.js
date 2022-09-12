@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require("express");
 const cors = require("cors");
 const { ApolloServer } = require("apollo-server-express");
@@ -33,8 +34,9 @@ const startApolloServer = async () => {
     db.disconnect();
   });
 
-  // eslint-disable-next-line no-console
-  console.log(`Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+  console.log("Server ready at:");
+  console.log(`GraphQL: http://localhost:${PORT}${server.graphqlPath}`);
+  console.log(`REST: http://localhost:${PORT}/api-docs`);
 };
 
 startApolloServer();
